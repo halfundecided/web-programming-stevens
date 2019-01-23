@@ -117,4 +117,12 @@ Check this out! [[https://github.com/halfundecided/web-programming-stevens/blob/
 [[https://philbarresi.com/understanding-functional-scope/][Functional Scope in JavaScript
 ]]
 *** Objects in JavaScript
-Check this out! [[]]
+Check this out! [[https://github.com/halfundecided/web-programming-stevens/blob/master/web-programming-1/lecture-notes/lecture01/objects.js][object.js]]
+
+*** Arrays in JavaScript
+JavaScript has many "functional programming" style array methods that do not mutate the original array. Many of the most common array methods can be seen in the [[][array.js]] file.
++ You can traverse arrays with ~forEach~
++ You can transform entries into a new array of results with ~map~
++ You can select a subset of elements from an array based on a condition using ~filter~
++ You can accumulate each array entry for a final result using ~reduce~
+
