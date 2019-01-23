@@ -126,3 +126,6 @@ JavaScript has many "functional programming" style array methods that do not mut
 + You can select a subset of elements from an array based on a condition using ~filter~
 + You can accumulate each array entry for a final result using ~reduce~
 
+
+** References 
++ [[https://github.com/graffixnyc/CS-546][CS546 Codebase Repo]]
