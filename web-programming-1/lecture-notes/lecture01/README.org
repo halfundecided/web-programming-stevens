@@ -1,0 +1,52 @@
+#+STARTUP: showall
+#+OPTIONS: num:nil toc:nil
+
+* Lecture 01: Introduction
+
+** Course Introduction
+*** Grade Breakdown
+| Material                   | Weight | Comment                                                                                                                                                                   |
+|----------------------------+--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Labs                       |    30% | Labs will be weighted equally. Labs will be given most weeks and cover the cover the content learned that week.                                                           |
+| In-Class Exercises/Quizzes |    10% | Most weeks we will have an in-class exercise or quiz.  You MUST attend the class to get credit for the in-class assignment or quiz.                                       |
+| Final Project Proposal     |     5% | Students will form groups and propose a final project to work on throughout thesemester.                                                                                  |
+| Project Pitch              |    10% | Each group will give a non-technical in-class presentation of their project, explaining what use case it solves,  who the audience is, and why it’s a worthwhile project. |
+| Database Proposal          |     5% | You will give a technical presentation showcasing your project’s features and technological decisions.                                                                    |
+| Final Project              |    30% | Each group will submit their project code and a database dump to be reviewed and graded based on  what was promised in their proposal and delivered.                      |
+
+*** What will we be covering in this course? 
++ A modern web programming environment by using Node.js, MongoDB, and Express.
++ How to do server-side programming. 
++ How to use a modern database. 
++ How to code for the client.
++ Web accessibility and the major hurdles that many people face using the web as it is today, how to identify issues that exist in a web page, as well as how to correct them. 
++ advanced client-side programming techniques.
++ Create a market-ready database driven web-application, from start to finish, involving technical presentations.
+
+*** What will we do in this course?
+In this course, you will:
++ Complete a number of labs that will assess your understanding of the topics covered in class. These will be simple programming assignments that will serve to help you on your assignments
++ You will be placed into groups and your group will need to come up with an idea for a full web application to use as your final project, which you will submit in the form of a final project proposal.
++ Setup your database schema and submit a database proposal.
++ Give a non technical presentation detailing yoour prooject idea.
++ Give a technocal presentation demonstrating your project result.
++ Submit your final project code.
+
+*** What is the final project like? 
+For your final project, you will create a market-ready, database-driven application as part of a team. Your application will incorporate aspects from the entirety of the course. 
+The final project has several components to it, both technical and non-technical. 
++ You will be placed in grooups and submit a project proposal.
++ You will submit a proposed format for your database.
++ You will give an in-class non-technical presentation detailing what your product is, who the user would be, and why the project is worthwhile to take on.
++ You will give a technical presentation detailing youor features and the technical decisions yoou made.
++ You will submit your codebase and a database dump and deliver the actual product. 
+
+*** Technologies and Tools
+1. Git: For Version Control
+2. Node.js (Server-Side JavaScript)
+3. MongoDB: document based database
+4. tota11y: an accessibility testing tool created by Khan Academy http://khan.github.io/tota11y/
+5. HTML and CSS
+6. JavaScript: https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/JavaScript_basics
+
+** Intro to JavaScript
