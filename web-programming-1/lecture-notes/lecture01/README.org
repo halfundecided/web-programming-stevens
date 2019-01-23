@@ -42,11 +42,50 @@ The final project has several components to it, both technical and non-technical
 + You will submit your codebase and a database dump and deliver the actual product. 
 
 *** Technologies and Tools
-1. Git: For Version Control
-2. Node.js (Server-Side JavaScript)
-3. MongoDB: document based database
-4. tota11y: an accessibility testing tool created by Khan Academy http://khan.github.io/tota11y/
-5. HTML and CSS
-6. JavaScript: https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/JavaScript_basics
++ Git: For Version Control
++ Node.js (Server-Side JavaScript)
++ MongoDB: document based database
++ tota11y: an accessibility testing tool created by Khan Academy http://khan.github.io/tota11y/
++ HTML and CSS
++ JavaScript: https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/JavaScript_basics
 
 ** Intro to JavaScript
+*** What is Node.js? 
+Node.js is a JavaScript runtime environment that runs on a computer, rather than in a browser. Node.js often comes bundled with npm, the Node.js Package Manager, which allows you to add dependencies
++ In node, you use the require function to require other modules (from packages, or from other files)
+
+*** What is a module? 
+Generally, a module is an individual unit that can be plugged into another system or codebase with relative ease. Modules do not have to be related, allowing you to write a system that allows many different things to interact with each other by writing code that glues them all together. They are very flexible, and allow you to organize your code very well. 
+
+*** What are packages and npm?
+Node.js has a massive repository of published code that you can very eaily pull into your assignments (where applicable) through the node package manager(npm). You will require the modules that your packages export, and use code that other people have created, tested, and tried. You will then use these packages to expand on your own applications and build out fully functional applications. 
+
+*** Some basic facts about JavaScript 
+JavaScript is a loosely typed language, a concept that you may have seen before. There are five primitives currently, with a sixth (symbol) on the way
++ Boolean 
++ Number
++ String
++ Null
++ Undefined  
+JavaScript also has Objects, which all non-primitives fall under 
++ Functions in JavaScript are types of Objects
++ Objects are prototypical 
+
+*** Defining Variables 
+| Keyword | Scope      | Explanation                                                                                      | Example                 |
+|---------+------------+--------------------------------------------------------------------------------------------------+-------------------------|
+| const   | Block      | Initializes a block scoped variable that cannot get overwritten. Most common used in this course | ~const twelve = 2 + 10~ |
+| let     | Block      | Initializes a block scoped variable that can get overwritten.                                    | ~let squareSum = 0;~    |
+| var     | Functional | Initializes a variable that can get overwritten; not used in course.                             | ~var twelve = 2+10;~    |
+
+*** Basic Syntax and Strings
+Check [[][strings.js]]
+
+*** Booleans and Equality 
+JavaScript is a truthy language; that means that many things can evaluate as "true" or "false". Check out [[][boolean.js]]
+
+*** Numbers
+Check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math and [[][numbers.js]]
+
+*** Functions 
+Check this out! [[][functions.js]]
