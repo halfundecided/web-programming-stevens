@@ -82,9 +82,10 @@ JavaScript also has Objects, which all non-primitives fall under
 Check [[][strings.js]]
 
 *** Booleans and Equality 
-JavaScript is a truthy language; that means that many things can evaluate as "true" or "false". Check out [[][boolean.js]]
+JavaScript is a truthy language; that means that many things can evaluate as "true" or "false". There are two ways of checking for equality in JavaScript; ~==~ and ~===~. We more commonly use ~===~. The ~===~ operator checks that both the type and value match. Getting into the habit of using ~===~ will help with some truthy logical mixups later on. Check out [[][boolean.js]]
 
 *** Numbers
+Numbers in JavaScript are fairly standard; there are no ~int~ vs ~float~ numerical type issues, as they are all simply ~number~ typed. There is a Global Math object that will give you many arithmetic methods. 
 Check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math and [[][numbers.js]]
 
 *** Functions 
