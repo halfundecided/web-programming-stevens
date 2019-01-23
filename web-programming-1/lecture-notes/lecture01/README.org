@@ -79,14 +79,23 @@ JavaScript also has Objects, which all non-primitives fall under
 | var     | Functional | Initializes a variable that can get overwritten; not used in course.                             | ~var twelve = 2+10;~    |
 
 *** Basic Syntax and Strings
-Check [[][strings.js]]
+Check [[https://github.com/halfundecided/web-programming-stevens/blob/master/web-programming-1/lecture-notes/lecture01/strings.js][strings.js]]
 
 *** Booleans and Equality 
-JavaScript is a truthy language; that means that many things can evaluate as "true" or "false". There are two ways of checking for equality in JavaScript; ~==~ and ~===~. We more commonly use ~===~. The ~===~ operator checks that both the type and value match. Getting into the habit of using ~===~ will help with some truthy logical mixups later on. Check out [[][boolean.js]]
+JavaScript is a truthy language; that means that many things can evaluate as "true" or "false". There are two ways of checking for equality in JavaScript; ~==~ and ~===~. We more commonly use ~===~. The ~===~ operator checks that both the type and value match. Getting into the habit of using ~===~ will help with some truthy logical mixups later on. Check out [[https://github.com/halfundecided/web-programming-stevens/blob/master/web-programming-1/lecture-notes/lecture01/booleans.js][boolean.js]]
 
 *** Numbers
 Numbers in JavaScript are fairly standard; there are no ~int~ vs ~float~ numerical type issues, as they are all simply ~number~ typed. There is a Global Math object that will give you many arithmetic methods. 
 Check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math and [[][numbers.js]]
 
 *** Functions 
+There are several ways to write functions in JavaScript:
+ 
+**** Named functions 
+Names functions are accessible anywhare in the scope that defines them. 
+#+BEGIN_SRC
+function myGlobalFunction() {
+   console.log("I'm a global function");
+}
+#+END_SRC
 Check this out! [[][functions.js]]
