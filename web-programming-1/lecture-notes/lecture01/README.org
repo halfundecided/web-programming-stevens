@@ -93,9 +93,24 @@ There are several ways to write functions in JavaScript:
  
 **** Named functions 
 Names functions are accessible anywhare in the scope that defines them. 
-#+BEGIN_SRC
+#+BEGIN_SRC javascript
 function myGlobalFunction() {
    console.log("I'm a global function");
 }
+#+END_SRC
+
+**** Anonymous functions 
+Anonymous functions have no function name, and are often stored as variables or passed as callbacks.
+#+BEGIN_SRC javascript
+let doubleUpAnonymous = function(x) {
+  return x * 2;
+};
+#+END_SRC
+
+**** Arrow functions 
+#+BEGIN_SRC javascript
+let doubleUp = x => {
+  return x * 2;
+};
 #+END_SRC
 Check this out! [[][functions.js]]
