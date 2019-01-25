@@ -2,13 +2,13 @@
 ## An Intro to Node
 
 - [x] For this lab, you will be creating and running several functions to practice JavaScript syntax.
-- [ ] For this lab, you will make two files: lab1.js and lab1.test.js and submit them in a zip file that's named LastName_FirstName.zip. For example: Hill_Patrick.zip
+- [x] For this lab, you will make two files: lab1.js and lab1.test.js and submit them in a zip file that's named LastName_FirstName.zip. For example: Hill_Patrick.zip
 - [x] You should not have any folders inside the zip file.
-- [ ] You must submit your files with the format specified, named as specified.
-- [ ] You need to make five different test cases for each function. 
+- [x] You must submit your files with the format specified, named as specified.
+- [x] You need to make five different test cases for each function. 
 
 ### `lab1.js`
-- [ ] In this file, you will update the content of the functions and update the `firstName`, `lastName`, and `studentId` with the appropriate information. The function specifications are listed in the section below. 
+- [x] In this file, you will update the content of the functions and update the `firstName`, `lastName`, and `studentId` with the appropriate information. The function specifications are listed in the section below. 
 - [x] `questionOne`
 - [x] `questionTwo`
 - [x] `questionThree`
@@ -63,7 +63,7 @@ console.log(lab1.questionFour(10));
 ### `questionOne(arr)`
 For your first function, you will calculate the sum of the squares of all numbers in the arrayn numbers and return that result. That means that in `lab1.test.js`, running `lab1.questionOne([5, 3, 10])` would return `134`.
 
-- [ ] To test this function, you will log the result of 5 calls to `lab1.questionOne([x, y, z])` with different inputs, like so:
+- [x] To test this function, you will log the result of 5 calls to `lab1.questionOne([x, y, z])` with different inputs, like so:
 ```js
 console.log(lab1.questionOne([5, 3, 10])); 
 // 134
@@ -91,6 +91,6 @@ The factorial of a number is a simple formula:
 The factorial of 0 is 1. If `num` is less than 0, then return `NaN`.
 
 ## Requirements
-- [ ] You will have to write each function
-- [ ] You must submit all files, zipped up, not contained in any folders
-- [ ] You must not use any npm dependenices in this lab
+- [x] You will have to write each function
+- [x] You must submit all files, zipped up, not contained in any folders
+- [x] You must not use any npm dependenices in this lab
