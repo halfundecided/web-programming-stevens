@@ -1,7 +1,17 @@
 /* Scratch for Lab1 problems */
 
 // Question 1
-let array = [1, 2, 3];
+let array = [1, 2, 'char'];
+
+for (let i = 0; i < array.length; i++) {
+    if(typeof array[i] !== "number" ) {
+        throw "It contains the element which is not a number";
+        //console.log()?
+    }
+}
+if(isNaN(array)){
+    throw "This is empty array";
+}
 
 let squaredArray = array.map(item => {
     return item * item;
