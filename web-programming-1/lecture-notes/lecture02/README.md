@@ -65,3 +65,12 @@ When download a node application, you will be downloading it without dependencie
   + `npm install PACKAGENAME`
 - Write some code in your starting file
 - Run app with `npm start`
+
+
+## Modules
+### What is a module?
+Generally, a module is an individual unit that can be plugged into another system or codebase with relative ease. In Node.js, you will be using modules everywhere. 
+
+### Require
+There is a special, global function called `require`, which will allow you to import code from other files, packages, etc.  
+When you require a file/package, you will be accessing whatever the programmer assigned to be exported in that file. From there, you can use the code. 
