@@ -90,3 +90,9 @@ You should make sure each method checks that the arguments passed are valid in m
 When a method is given bad inputs, to prevent the method from running, you want to use the **throw** operator to stop execution of the current function with a user defined exception.
 + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw
 + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
+
+## Readings
+- [Explained: What are Node.js Modules](https://www.nodebeginner.org/blog/post/nodejs-tutorial-what-are-node.js-modules/)
+- [Module Exports](https://www.tutorialsteacher.com/nodejs/nodejs-module-exports)
+- [W3Schools Node.js Modules](https://www.w3schools.com/nodejs/nodejs_modules.asp)
+- [How to install modules through npm](https://docs.npmjs.com/downloading-and-installing-packages-locally)
