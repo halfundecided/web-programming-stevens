@@ -81,3 +81,12 @@ There is another global variable called `module`, which has a property called `e
 
 ## Error Checking Module Methods
 ### Error Checking
+You should make sure each method checks that the arguments passed are valid in many ways: 
+  + Check that arguments are provided (check if undefined)
+  + Check that arguments are of the expected type (use typeof operator)
+  + Check that arguments are within proper bounds
+
+### Throwing 
+When a method is given bad inputs, to prevent the method from running, you want to use the **throw** operator to stop execution of the current function with a user defined exception.
++ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw
++ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
