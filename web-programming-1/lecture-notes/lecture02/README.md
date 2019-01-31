@@ -74,3 +74,10 @@ Generally, a module is an individual unit that can be plugged into another syste
 ### Require
 There is a special, global function called `require`, which will allow you to import code from other files, packages, etc.  
 When you require a file/package, you will be accessing whatever the programmer assigned to be exported in that file. From there, you can use the code. 
+
+### Make the code requirable
+There is another global variable called `module`, which has a property called `exports` on it: `module.exports`. You can export anything you want: a function, a number, or an object that allows you to do any combination of these things. 
+
+
+## Error Checking Module Methods
+### Error Checking
