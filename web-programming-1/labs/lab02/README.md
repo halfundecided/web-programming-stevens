@@ -88,8 +88,7 @@ If any of those conditions fails, the function will throw.
 countElements([13, '13', 13, 'hello', true, true]);
 /* Returns: 
 {
-  13: 2,
-  "13": 1,
+  "13": 3,
   "hello": 1,
   true: 2
 }
