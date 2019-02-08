@@ -1,0 +1,13 @@
+{
+  "name": "callbacks",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts" : {
+    "start": "node app.js"
+  },
+  "author": "Mijeong Ban",
+  "license": "MIT",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  }
+}
