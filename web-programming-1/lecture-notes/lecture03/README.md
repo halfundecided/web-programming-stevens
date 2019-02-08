@@ -50,3 +50,14 @@ When you run your own web server, you have no idea when someone will actually ac
 ---> [Go to callbacks folder](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture03/callbacks)
 
 
+## Promises
+### What is a promise?
+A promise is an object that represents the eventual result of some asynchronous operation. Rather than blocking, an asynchronous method will go through the following steps: 
+  + Immediately return a new Promise object, which takes a callback to run on success and failure 
+  + Prepare the asynchronous call
+  + Run the asynchronous component of the method; due to how JavaScript's event queue works, this will always begin to run after the current method ends. 
+  + Return a promise that will resolve the request after the asynchronous operation is completed 
+
+### Why are they useful?
+Promises allow us to write code that resembles synchronous code in how it is syntactically written, while actually writing powerful and complex asynchronous code.  
+It is a cleaner way of performing asynchronous operations, rather than infinitely nesting callbacks, which cause for easier development. --> [Go to promises folder]()
