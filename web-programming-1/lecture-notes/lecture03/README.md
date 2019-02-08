@@ -47,6 +47,6 @@ When you run your own web server, you have no idea when someone will actually ac
 2. Once that is complete, we will read the file
 3. Once that is complete, we will reverse the content of the file
 4. Once that is complete, we will save the file again  
----> [Go to callbacks folder]()
+---> [Go to callbacks folder](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture03/callbacks)
 
 
