@@ -21,7 +21,7 @@ prompt.get([getfileOperation], function(err, result) {
     console.log(`About to read ${fileName} if it exists`);
 
     // Read the file
-    fs.readFile(fileName, "uft-8", function(fileReadError, date) {
+    fs.readFile(fileName, "utf-8", function(fileReadError, date) {
         if(fileReadError) {
             throw fileReadError;
         }

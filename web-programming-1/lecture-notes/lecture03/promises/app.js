@@ -1,8 +1,9 @@
+// Converting a callback to a promise
 const bluebird = require("bluebird");
-const Promise = bluebire.Promise;
+const Promise = bluebird.Promise;
 
 const prompt = bluebird.promisify(require("prompt"));
-const fs = bluebird.promisifyAll(reequire("fs"));
+const fs = bluebird.promisifyAll(require("fs"));
 
 const getFileOperation = {
     name: "fileName",
@@ -21,4 +22,28 @@ prompt
 
         return fileName;
     })
-    .then
+    .then(function(fileName) {
+        return fs.readFileAsync(fileName, "utf-8").then(function(data) {
+            return { fileName: fileName, filecontent: data };
+        });
+    }) 
+    .then(function(fileInfo) {
+        const fileName = fileInfo.fileName;
+        const fileContent = fileInfo.fileContent;
+
+        const reversedContent = fileContent.split("").reverse().join("");
+
+        const reversedName = `reversed_${fileName}`;
+
+        return fs.writeFileAsync(reversedName, reversedContent);
+    })
+    .then(function() {
+        console.log("Finished!");
+
+        return null;
+    })
+    .catch(function(err) {
+        if(err) {
+            throw err;
+        }
+    });
