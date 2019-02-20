@@ -35,7 +35,7 @@ function last(array) {
 /* Removes the element at the specified index of the array, and returns the new array */
 function remove(array, index) {
   // Check if the array exists
-  if (typeof array === "undefined") {
+  if (typeof array === "undefined" || typeof index === "undefined") {
     throw "provided variable is undefined";
   }
   // Check if the array is not empty
@@ -47,7 +47,7 @@ function remove(array, index) {
     throw `${array || "provided variable"} is not an array`;
   }
   // Check if the index is within bounds
-  if (index >= array.length || index < 0) {
+  if (index >= array.length || index < 0 || typeof index !== "number") {
     throw `${index} is not within bounds`;
   }
   array.splice(index, 1);

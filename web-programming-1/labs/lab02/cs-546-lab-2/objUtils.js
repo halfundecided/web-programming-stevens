@@ -4,14 +4,17 @@ function extend(...args){
     if (typeof args === "undefined") {
         throw "provided variable is undefined";
     }
-    // Check if arguments are object 
-    if(Object.prototype.toString.call(...args) != '[object Object]'){
-        throw "provided variable is not an object";
-    }
     // Check the number of arguments
     if(args.length < 2) {
         throw "the number of arguments should be at least two";
     }
+    
+    for(let object in args) {
+        if(typeof args[object] === "undefined" || typeof args[object] !== "object" || args[object].constructor === Array) {
+            throw "provided variables are not objects";
+        }
+    }
+
     return args.reduce((curr, next) => {
         for(let prop in next) {
             if(next.hasOwnProperty(prop) && !curr.hasOwnProperty(prop)) {
@@ -28,14 +31,16 @@ function smush(...args) {
     if (typeof args === "undefined") {
         throw "provided variable is undefined";
     }
-    // Check if arguments are object 
-    if(Object.prototype.toString.call(...args) != '[object Object]'){
-        throw "provided variable is not an object";
-    }
     // Check the number of arguments
     if(args.length < 2) {
         throw "the number of arguments should be at least two";
     }
+    for(let object in args) {
+        if(typeof args[object] === "undefined" || typeof args[object] !== "object" || args[object].constructor === Array) {
+            throw "hello";
+        }
+    } 
+    
     const result = Object.assign({}, ...args, ...args);
     return result;
 }
