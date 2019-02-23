@@ -39,9 +39,9 @@ MongoDB only has a few layers to it:
   + __Remove__: will take an object describing fields and values to match and will remove the object. It can remove multiple if you provide a second object with settings telling it to update multiple documents. 
 
 ### Demonstration
-  + [mongoConnection.js](): This file allows you to create one shared database connection for your entire app!
-  + [mongoCollections.js](): In this file, you can setup a module that will export async functions (promises) that reesolve to database collections; this insures that the connection is working, and allows you to organize code better 
-  + [dogs.js](): This file sets up a module that shows the basic pattern of Create, Read, Update, and Delete!
+  + [mongoConnection.js](https://github.com/halfundecided/web-programming-stevens/blob/master/web-programming-1/lecture-notes/lecture04/dog-blog/mongoConnection.js): This file allows you to create one shared database connection for your entire app!
+  + [mongoCollections.js](https://github.com/halfundecided/web-programming-stevens/blob/master/web-programming-1/lecture-notes/lecture04/dog-blog/mongoCollections.js): In this file, you can setup a module that will export async functions (promises) that reesolve to database collections; this insures that the connection is working, and allows you to organize code better 
+  + [dogs.js](https://github.com/halfundecided/web-programming-stevens/blob/master/web-programming-1/lecture-notes/lecture04/dog-blog/dogs.js): This file sets up a module that shows the basic pattern of Create, Read, Update, and Delete!
 
 ## Connecting to MongoDB
 ### Installing the MongoDB driver package
@@ -74,4 +74,15 @@ By creating a layer between your application code and your database, you will al
 
 ## Basic Data Manipulation in MongoDB
 ### Inserting into your collection
-In [app.js]() 
+In [app.js](https://github.com/halfundecided/web-programming-stevens/blob/master/web-programming-1/lecture-notes/lecture04/dog-blog/app.js), we will start off by creating our dogs, whom will be out bloggers today. We will be calling the methods exported from dogs.js in order to use those functions more easily.  
+In MongoDB, you insert documents; these documents are just JSON objects; we insert documents into collections, as you see from the addDog method in dogs.js
+
+### Retrieving Data
+In MongoDB, you retrieve documents by querying for matching properties. In our cases, we query dogs based on their _id field. The _id field is auto-generated on insert. We can also search for dogs based on matching names, or other properties. The getDogById method demonstrates retrieving a single dog that matches the query. 
+
+### Updating Data
+In MongoDB we can update one or more documents at a time by passing an object that describes what documents you want to match, and a document describing how you want the update to occur.  
+For now, we will be replacing the document entirely by passing a new version of the document to the update call. 
+
+### Deleting Data 
+In MongoDB we can delete one or more documents at a time by passing an object that describes what documents you want to match. 
