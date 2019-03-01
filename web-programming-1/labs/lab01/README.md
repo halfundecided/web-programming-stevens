@@ -1,4 +1,4 @@
-# CS546 Web Programmin1: Lab1
+# CS546 Web Programming1: Lab1
 ## An Intro to Node
 
 - [x] For this lab, you will be creating and running several functions to practice JavaScript syntax.
