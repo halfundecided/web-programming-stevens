@@ -1,4 +1,4 @@
-# CS546 Web Programmin1: Lab2
+# CS546 Web Programming1: Lab2
 The purpose of this lab is to familiarize yourself with Node.js modules and further your understanding of JavaScript syntax. 
 - [ ] You must have error checking for the arguments of all your functions. If an argument fails error checking, you should throw a string describing which argument was wrong, and what went wrong.
 

@@ -1,4 +1,4 @@
-# CS546 Web Programmin1: Lab3
+# CS546 Web Programming1: Lab3
 
 The purpose of this lab is to familiarize yourself with asynchronous programming in JavaScript, as well as using modules from the Node.js Package Manager.  
 For this lab, you must use the `async/await` keywords (not Promises). You will also be using [`axios`](https://github.com/axios/axios), which is a HTTP client for Node.js; you can install it with `npm i axios`.  
