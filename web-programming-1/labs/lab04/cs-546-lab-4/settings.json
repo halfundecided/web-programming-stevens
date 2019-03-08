@@ -1,0 +1,6 @@
+{
+    "mongoConfig": {
+        "serverUrl": "mongodb://localhost:27017/",
+        "database": "Mijeong_Ban_lab4"
+    }
+}
