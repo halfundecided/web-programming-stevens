@@ -50,3 +50,85 @@ Eachh of these request types can use the following types of data:
   + Request bodies
   + URL Params
   + Headers 
+
+### A request body
+POST, PUT, and DELETE requests can all provide data in a request body. A request body is a series of bytes transmitted below the headers of an HTTP Request. We will be submitting a request body in two ways: 
+  + Text that is in a JSON format (modern format of submitting data)
+  + Text that is in a form data format (traditionally how browsers POST)  
+The request body will be interpreted by our server using the body-parser middleware. 
+
+### Using request body data
+In order to access request body data, we must first apply the body-parser middleware.  
+We will be having out express app use the JSON body-parser middleware.  
+This will allow us to add text that is formatted as JSON to a request body, and to have our server parse thhe JSON and place the object in the request.body property.  
+This will allow us to submit data with out `POST`, `PUT,` and `DELETE` calls and begin interacting with our server. 
+
+### Using postman
+As we use more methods, such as `POST`, `PUT`, and `DELETE`, is becomes increasingly difficult to test using your browser, particularly because you cannot directly `PUT` and `DELETE` from the browser.  
+You can use a REST client such as Postman and PAW to test your API calls. 
+  + https://www.getpostman.com/
+  + https://luckymarmot.com/paw  
+A REST client is a program that will allow you to easily configure and make HTTP calls to your servers. 
+
+### Using Postman to send JSON
+In order to use Postman, you need: 
+  + The URL you wish to submit data to 
+  + The request method you wish to use
+  + Body data
+    + You must set the body type to __raw__
+    + You must also set the type to __JSON__
+
+### Adding a blog post with Postman
+```json
+{
+    "title": "Test JSON Post",
+    "body": "Test JSON body",
+    "posterId": 1
+}
+```
+
+### Using that post on the server 
+We can then use data posted on the server by accessing the `req.body` property. 
+```javascript
+router.post("/", (req, res) => {
+    let blogPostData = req.body;
+
+    postData.addPost(blogPostData.title, blogPostData.body, blogPostData.posterId)
+        .then(() => {
+            res.sendStatus(200);
+        }, 90 => {
+            res.sendStatus(500);
+        });
+});
+```
+
+### Updating data
+We use the `PUT` verb to update data. URLs to update object often include its identifier. That means to update a blog post with an id of 3 you would PUT to `http://localhost:3000/blog/3` Your request body would contain the new version of the blog post. 
+
+### Deleting data
+Informing your server that you want to delete an entity is extremely easy. Much like `PUT`, you would send a `DELETE` call to a URL that contains the identifier. That means to delete a blog post with an id of 3 you would `DELETE` to `http://localhost:3000/blog/3`
+
+## Server Side Error Checking
+### What is server side validation?
+Users will submit errors; it's a fact of life that as a web developer, you will encounter situations where an error is submitted.  
+There are many types of errors that can occur: 
+  + The user tries to request a resource that does not exist
+  + The user inputs data that does not make sense
+  + The user is not authenticated
+  + The input the user provides does not make sense 
+  + The user is attempting to access resources they do not have access to 
+
+### Server side error checking
+Whenever input comes from a user, you must check that this input is: 
+  + Actually there
+  + Actually the type you want
+  + Actually valid 
+There are two places you will need to perform error checking: 
+  + Inside of your routes; this will easily catch user submitted errors 
+  + Inside of your data modules; this will allow you to ensure that you don't create bad data. 
+
+### Error handling in an API
+While we build out these APIs, error handling is extremely easy. When you encounter an issue in your API routes, you will:
+  + Determine what type of error it is and respond with the proper status code. 
+  + In addition to the failed status code, also send back a JSON object that describes what happened. It can be as simple as having a property called `errorMessage` with a string describing the error, or an array of all the errors!
+  
