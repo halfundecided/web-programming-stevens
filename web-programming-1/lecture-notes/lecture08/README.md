@@ -69,4 +69,28 @@ There are many types of input, most of them revolving around some sort of text. 
 - number
 - radio
 - file
-- check
+- checkbox  
+  By going to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input you can see a list of all input types and their properties
+
+### Text based inputs
+
+There are many types of input, most of them revolving around some sort of text.
+
+- Text can be numerical
+- Text can be string based  
+  When submitting through an HTML form, this text is submitted as a **string**, no matter what the data type is.
+
+### Single-Select and Radio Inputs
+
+Some types of inputs internally store strings, but give a limited number of options.  
+In the `select` example, the form will send information with `query` as the **key** and whichever option you select as it's **value**. It uses the option's **value** field to determine what query will get, when that option is selected.  
+The `input type="radio"` example, as far as the form is concerned, puts the same data as the `select` example. The value of whichever radio input is checked (which changes when the user selects a new value) will become the value of `query`.
+
+```html
+<select name="query">
+  <option value="Austin">Austin</option>
+  <option value="Helvetica">Font</option>
+</select>
+<input type="radio" name="query" value="Austin" />Austin<br />
+<input type="radio" name="query" value="Helvetica" checked />Font
+```
