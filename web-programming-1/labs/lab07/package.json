@@ -1,0 +1,16 @@
+{
+  "name": "lab07",
+  "version": "1.0.0",
+  "description": "## Animal Farm 2: For this lab, we are going to make more parts of the database for a social media website for animals, as well as developing a simple API to interact with your application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mijeong Ban",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongodb": "^3.2.3"
+  }
+}
