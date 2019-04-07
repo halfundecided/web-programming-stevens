@@ -6,8 +6,8 @@ const animalData = data.animals;
 /* GET /animals */
 router.get("/", async (req, res) => {
   try {
-    const animal = await animalData.getAll();
-    res.json(animal);
+    const animalList = await animalData.getAll();
+    res.json(animalList);
   } catch (e) {
     res.status(404).json({ message: "not found!" });
   }
