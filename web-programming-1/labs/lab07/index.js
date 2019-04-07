@@ -1,10 +1,13 @@
 const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const configRoutes = require("./routes");
 
-app.use(bodyParser.json());
-configRoutes(app);
+const app = express();
+
+app.use(morgan("dev"));
+app.use(express.json());
+
+app.use(configRoutes);
 
 app.listen(3000, () => {
   console.log("We've now got a server!");
