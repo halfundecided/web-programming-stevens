@@ -22,7 +22,8 @@ module.exports = {
     let newAnimal = {
       name: name,
       animalType: animalType,
-      likes: likes
+      likes: likes,
+      posts: []
     };
 
     const insertInfo = await animalCollection.insertOne(newAnimal);
@@ -80,6 +81,61 @@ module.exports = {
     );
     if (renamedInfo.modifiedCount === 0)
       throw "could not rename animal successfully";
+
+    return await this.get(id);
+  },
+  async addPostToUser(userId, postId, postTitle) {
+    if (
+      typeof userId === "undefined" ||
+      typeof postId === "undefined" ||
+      typeof postTitle === "undefined"
+    )
+      throw `arguments not provided`;
+    if (
+      userId.constructor !== String ||
+      postId.constructor !== String ||
+      postTitle.constructor !== String
+    )
+      throw `invalid arguments`;
+
+    const animalCollection = await animals();
+    const parsedUserId = ObjectId.createFromHexString(userId);
+    const parsedPostId = ObjectId.createFromHexString(postId);
+    const addPost = {
+      posts: {
+        id: parsedPostId,
+        title: postTitle
+      }
+    };
+    const updatedUserWithPost = await animalCollection.updateOne(
+      { _id: parsedUserId },
+      { $addToSet: addPost }
+    );
+    if (updatedUserWithPost.modifiedCount === 0)
+      throw "could not add the post successfully";
+
+    return await this.get(id);
+  },
+  async removePostFromUser(userId, postId) {
+    if (typeof userId === "undefined" || typeof postId === "undefined")
+      throw `arguments not provided`;
+    if (userId.constructor !== String || postId.constructor !== String)
+      throw `invalid arguments`;
+
+    const animalCollection = await animals();
+    const parsedUserId = ObjectId.createFromHexString(userId);
+    const parsedPostId = ObjectId.createFromHexString(postId);
+    const removePost = {
+      posts: {
+        id: parsedPostId
+      }
+    };
+    const updatedUserWithPost = await animalCollection.updateOne(
+      { _id: parsedUserId },
+      { $pull: removePost }
+    );
+    if (updatedUserWithPost.modifiedCount === 0)
+      throw "could not remove the post successfully";
 
     return await this.get(id);
   }

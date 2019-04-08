@@ -6,7 +6,7 @@ const animalRoutes = require("./animals");
 router.use("/animals", animalRoutes);
 
 router.use("*", (req, res) => {
-  res.status(404).json({ error: "Invalid Route " });
+  res.status(404).json({ error: "Invalid Route" });
 });
 
 module.exports = router;
