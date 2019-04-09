@@ -4,13 +4,13 @@ const app = express();
 const static = express.static(__dirname + "/public");
 
 const configRoutes = require("./routes");
-const handlebars = require("express-handlebars");
+const exphbs = require("express-handlebars");
 
 app.use("/public", static);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.engine("handebars", handlebars({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 configRoutes(app);
