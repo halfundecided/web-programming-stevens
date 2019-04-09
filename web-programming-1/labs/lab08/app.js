@@ -7,8 +7,8 @@ const configRoutes = require("./routes");
 const exphbs = require("express-handlebars");
 
 app.use("/public", static);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded());
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");

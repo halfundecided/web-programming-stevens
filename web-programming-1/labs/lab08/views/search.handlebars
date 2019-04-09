@@ -20,4 +20,14 @@
             <li><a href="/details/{{this.id}}">{{this.firstName}} {{this.lastName}}</a></li>
             {{/each}}
         </ul>
+        {{#if hasErrors}}
+        <ul class="error-list">
+            {{#each errors}}
+            <li>
+                {{this}}
+            </li>
+            {{/each}}
+        </ul>
+        {{/if}}
+
     </main>
