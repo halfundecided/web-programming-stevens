@@ -12,21 +12,21 @@ You will be making three pages in your application:
 
 ### `GET http://localhost:3000/`
 
-- [ ] This page will respond with a valid HTML document.
-- [ ] The title of the document should be "People Finder". You should have the title set as the `<title>` element of the HTML document and as an `h1` in your document.
+- [x] This page will respond with a valid HTML document.
+- [x] The title of the document should be "People Finder". You should have the title set as the `<title>` element of the HTML document and as an `h1` in your document.
 - [ ] Your page should reference a CSS file, `/public/site.css`; this file should have at least 5 rulesets that apply to this page; these 5 rules can also apply to elements across all of your pages, or be unique to this page.
-- [ ] You should have a `main` element, and inside of the `main` element have a `p` element with a brief (2-3 sentence description) of what your website does.
-- [ ] Also inside the `main` element, you will have a `form`; this `form` will `POST` to `/search`.
-  - [ ] This `form` will have an `input` and a `label`; the `label` should properly reference the same `id` as the `input`.
-  - [ ] you should also have a `button` with a type of `submit` that submits the form. The `input` in your `form` should have a `name` of `personName`.
+- [x] You should have a `main` element, and inside of the `main` element have a `p` element with a brief (2-3 sentence description) of what your website does.
+- [x] Also inside the `main` element, you will have a `form`; this `form` will `POST` to `/search`.
+  - [x] This `form` will have an `input` and a `label`; the `label` should properly reference the same `id` as the `input`.
+  - [x] you should also have a `button` with a type of `submit` that submits the form. The `input` in your `form` should have a `name` of `personName`.
 
 ### `POST http://localhost:3000/search`
 
-- [ ] This page will respond with a valid HTML document.
-- [ ] The title of the document should be "People Found". You should have the title set as the `<title>` element of the HTML document and as an `h1` in your document.
-- [ ] In an `h2` element, you will print the supplied `personName`.
+- [x] This page will respond with a valid HTML document.
+- [x] The title of the document should be "People Found". You should have the title set as the `<title>` element of the HTML document and as an `h1` in your document.
+- [x] In an `h2` element, you will print the supplied `personName`.
 - [ ] Your page should reference a CSS file, `/public/site.css`; this file should have at least 5 rulesets that apply to this page; these 5 rules can also apply to elements on `/`, or be unique to this page.
-- [ ] You should have a `main` element, and inside of the `main`element have a `ul` tag that has a list of up to 20 people matching the `personName` found in the request body in the following format (after searching `Rob`).
+- [x] You should have a `main` element, and inside of the `main`element have a `ul` tag that has a list of up to 20 people matching the `personName` found in the request body in the following format (after searching `Rob`).
 
 ```html
 <ul>
@@ -42,8 +42,8 @@ You will be making three pages in your application:
 </ul>
 ```
 
-- [ ] You must also provide an `a` tag that links back to your `/` route with the text `Make another search`.
-- If no matches are found, you will print the following HTML paragraph:
+- [x] You must also provide an `a` tag that links back to your `/` route with the text `Make another search`.
+- [x] If no matches are found, you will print the following HTML paragraph:
 
 ```html
 <p class="not-found">
@@ -55,11 +55,11 @@ You will be making three pages in your application:
 
 ### `GET http://localhost:3000/details/{id}`
 
-- [ ] This page will respond with a valid HTML document.
-- [ ] The title of the document should be "Person Found". You should have the title set as the `<title>` element of the HTML document and as an `h1` in your document.
-- [ ] In an `h2` element, you will print the name of the person found.
+- [x] This page will respond with a valid HTML document.
+- [x] The title of the document should be "Person Found". You should have the title set as the `<title>` element of the HTML document and as an `h1` in your document.
+- [x] In an `h2` element, you will print the name of the person found.
 - [ ] Your page should reference a CSS file, `/public/site.css`; this file should have at least 5 rulesets that apply to this page; these 5 rules can also apply to elements on `/`, or be unique to this page.
-- [ ] You should have a `main` element, and inside of the `main` element have a `dl` tag that has a definition list of all the properties of the matching person in the following HTML structure.  
+- [x] You should have a `main` element, and inside of the `main` element have a `dl` tag that has a definition list of all the properties of the matching person in the following HTML structure.  
        Matching Person:
 
 ```json
@@ -99,7 +99,7 @@ HTML Printed:
 
 ### `http://localhost:3000/public/site.css`
 
-This file should have 5 rulesets that apply to the `/` route, and 5 rulesets that apply to all of your pages. Rulesets may be shared across both pages; for example, if you styled a `p` tag, it would count as ` of the 5 for both pages. You may include more thant 5 rulesets if you so desire.
+- [ ] This file should have 5 rulesets that apply to the `/` route, and 5 rulesets that apply to all of your pages. Rulesets may be shared across both pages; for example, if you styled a `p` tag, it would count as ` of the 5 for both pages. You may include more thant 5 rulesets if you so desire.
 
 ## Hint
 

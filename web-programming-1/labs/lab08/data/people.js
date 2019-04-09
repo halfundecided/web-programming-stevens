@@ -14,21 +14,27 @@ const searchResult = async personName => {
   let number = 0;
   let stack = [];
 
-  // stack = people.data.filter(e = > `${firstNaeme} ${lastName}`.includes(personName)).
-  for (let i = 0; i < people.data.length; i++) {
-    if (
-      people.data[i].firstName.toLowerCase().includes(personName) ||
-      people.data[i].lastName.toLowerCase().includes(personName)
-    ) {
-      // firstName = people.data[i].firstName;
-      // lastName = people.data[i].lastName;
-      stack.push(people.data[i]);
-      number++;
-    }
-    if (number > 20) {
-      break;
-    }
-  }
+  stack = people.data
+    .filter(e =>
+      `${e.firstName.toLowerCase()} ${e.lastName.toLowerCase()}`.includes(
+        personName.toLowerCase()
+      )
+    )
+    .slice(0, 20);
+  // for (let i = 0; i < people.data.length; i++) {
+  //   if (
+  //     people.data[i].firstName.toLowerCase().includes(personName) ||
+  //     people.data[i].lastName.toLowerCase().includes(personName)
+  //   ) {
+  //     // firstName = people.data[i].firstName;
+  //     // lastName = people.data[i].lastName;
+  //     stack.push(people.data[i]);
+  //     number += 1;
+  //   }
+  //   if (number > 19) {
+  //     break;
+  //   }
+  // }
 
   // return `${firstName} ${lastName}`;
   return stack;
