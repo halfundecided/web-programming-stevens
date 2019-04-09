@@ -4,8 +4,8 @@ const data = require("../data");
 const peopleData = data.people;
 
 router.get("/:id", async (req, res) => {
-  const personDatail = await peopleData.getDetails();
-  res.render("details", { personName: personDatail });
+  const person = await peopleData.getPersonById(req.params.id);
+  res.render("details", { person: person });
 });
 
 module.exports = router;

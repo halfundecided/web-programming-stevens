@@ -1,11 +1,25 @@
-<section>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>People Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../../public/css/site.css" />
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Search another name</a></li>
+        </ul>
+    </nav>
     <h1>People Finder</h1>
     <main>
         <p>explain thissss</p>
-        <form method="POST" action="/search">
+        <form method="GET" action="/search">
             <label name="personName" id="id">Person Name</label>
-            <input type="text" name="personName" value="Person Name" id="id" />
+            <input type="text" name="personName" placeholder="NAME" value="" id="id" />
             <button type="submit">Search</button>
         </form>
     </main>
-</section>
+
+</body>

@@ -5,8 +5,8 @@ const detailRoutes = require("./details");
 const constructorMethod = app => {
   app.use("/search", searchRoutes);
   app.use("/details", detailRoutes);
-  app.use("/", (req, res) => {
-    res.render("index");
+  app.get("/", (req, res) => {
+    res.render("index", {});
   });
 
   app.use("*", (req, res) => {

@@ -1,11 +1,23 @@
-<section>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>People Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../../public/css/site.css" />
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Search another name</a></li>
+        </ul>
+    </nav>
     <h1>People Found</h1>
     <h2>{{ personName }}</h2>
     <main>
         <ul>
             {{#each people}}
-            <li><a href="/details/{{_id}}">{{personName}}</a></li>
+            <li><a href="/details/{{this.id}}">{{this.firstName}} {{this.lastName}}</a></li>
             {{/each}}
         </ul>
     </main>
-</section>

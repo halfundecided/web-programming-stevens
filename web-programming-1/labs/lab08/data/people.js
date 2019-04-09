@@ -14,10 +14,11 @@ const searchResult = async personName => {
   let number = 0;
   let stack = [];
 
+  // stack = people.data.filter(e = > `${firstNaeme} ${lastName}`.includes(personName)).
   for (let i = 0; i < people.data.length; i++) {
     if (
-      people.data[i].firstName.includes(personName) ||
-      people.data[i].lastName.includes(personName)
+      people.data[i].firstName.toLowerCase().includes(personName) ||
+      people.data[i].lastName.toLowerCase().includes(personName)
     ) {
       // firstName = people.data[i].firstName;
       // lastName = people.data[i].lastName;
@@ -28,30 +29,57 @@ const searchResult = async personName => {
       break;
     }
   }
+
   // return `${firstName} ${lastName}`;
   return stack;
+  // returning the array of object
 };
 
-const getDetails = async index => {
+const getPersonById = async index => {
   const people = await axios.get(
     "https://gist.githubusercontent.com/robherley/5112d73f5c69a632ef3ae9b7b3073f78/raw/24a7e1453e65a26a8aa12cd0fb266ed9679816aa/people.json"
   );
+  // Check if the index exists as is of proper type
+  if (typeof index === "undefined") {
+    throw "index doesn't exist or it's not a number";
+  }
+  // Check if the index is within bounds
+  if (index < 0 || index >= people.data.length) {
+    throw "index is not within bounds";
+  }
+  let num = parseInt(index);
 
-  if (typeof index === "undefined" || index.constructor !== Number)
-    throw `invalid person's id`;
+  let info = {};
 
-  if (index < 0 || index >= people.data.length) throw `id is out of bound`;
-
-  let details = {};
   for (let i = 0; i < people.data.length; i++) {
-    if (people.data[i].id === index) {
-      details = people.data[i];
+    if (people.data[i].id === num) {
+      info = people.data[i];
     }
   }
-  return details;
+  return info;
 };
+
+// const getDetails = async index => {
+//   const people = await axios.get(
+//     "https://gist.githubusercontent.com/robherley/5112d73f5c69a632ef3ae9b7b3073f78/raw/24a7e1453e65a26a8aa12cd0fb266ed9679816aa/people.json"
+//   );
+
+//   if (typeof index === "undefined" || index.constructor !== Number)
+//     throw `invalid person's id`;
+
+//   if (index < 0 || index >= people.data.length) throw `id is out of bound`;
+
+//   let details = {};
+//   for (let i = 0; i < people.data.length; i++) {
+//     if (people.data[i].id === index) {
+//       details = people.data[i];
+//     }
+//   }
+//   return details;
+// };
 
 module.exports = {
   searchResult,
-  getDetails
+  getPersonById
+  // getDetails
 };
