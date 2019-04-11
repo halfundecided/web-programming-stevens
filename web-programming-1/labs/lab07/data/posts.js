@@ -5,6 +5,12 @@ const { ObjectId } = require("mongodb");
 
 //create, read, update, delete
 module.exports = {
+  async getAll() {
+    const postCollection = await posts();
+
+    const allPosts = await postCollection.find({}).toArray();
+    return allPosts;
+  },
   async createPost(title, author, content) {
     if (
       typeof title === "undefined" ||
@@ -14,7 +20,7 @@ module.exports = {
       throw `arguments not provided`;
     if (title.constructor !== String) throw "No title provided";
     //object id???
-    if (author.constructor !== Object) throw "invalid id";
+    if (author.constructor !== String) throw "invalid id";
     if (content.constructor !== String) throw "No content provided";
 
     const postCollection = await posts();
@@ -28,6 +34,8 @@ module.exports = {
 
     const insertInfo = await postCollection.insertOne(newPost);
     if (insertInfo.insertedCount === 0) throw "Could not add post";
+
+    // **** DO ADDPOSTTOUSER HERE *****
 
     return await postCollection.findOne({
       _id: ObjectId(insertInfo.insertedId)
@@ -62,8 +70,8 @@ module.exports = {
     const parsedId = ObjectId.createFromHexString(id);
 
     const updatedPost = {
-      title: newTitle,
-      content: newContent
+      newTitle: newTitle,
+      newContent: newContent
     };
 
     const updatedInfo = await postCollection.updateOne(

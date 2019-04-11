@@ -3,18 +3,6 @@ const router = express.Router();
 const data = require("../data");
 const animalData = data.animals;
 
-// /**
-//  * Helper function from Rob's code: https://github.com/robherley/mongo-express-example/blob/master/routes/users.js
-//  */
-// async function doesAnimalExist(id) {
-//   try {
-//     await animals.get(id);
-//     return true;
-//   } catch (e) {
-//     return false;
-//   }
-// }
-
 /* GET /animals */
 router.get("/", async (req, res) => {
   try {
@@ -28,30 +16,32 @@ router.get("/", async (req, res) => {
 /* POST /animals */
 router.post("/", async (req, res) => {
   const animalInfo = req.body;
+  console.log(animalInfo);
 
   if (!animalInfo) {
-    res.status(400).json({ error: "You must provide data to create a user" });
+    res
+      .status(400)
+      .json({ error: "You must provide data to create an animal" });
     return;
   }
-  if (!animalInfo.name) {
+  if (!animalInfo.newName) {
     res.status(400).json({ error: "You must provide a name" });
     return;
   }
-  if (!animalInfo.animalType) {
+  if (!animalInfo.newType) {
     res.status(400).json({ error: "You must provide an animalType" });
     return;
   }
 
   try {
     const newAnimal = await animalData.create(
-      animalInfo.name,
-      animalInfo.animalType
+      animalInfo.newName,
+      animalInfo.newType
     );
     res.json(newAnimal);
   } catch (e) {
     res.sendStatus(500);
   }
-  // ?? how are we actually sending data?
 });
 
 /* GET /animals/{id} */
@@ -61,6 +51,55 @@ router.get("/:id", async (req, res) => {
     res.status(200).json(animal);
   } catch (e) {
     res.status(404).json({ error: "Animal not found!" });
+  }
+});
+
+/* PUT /animals/{id} */
+router.put("/:id", async (req, res) => {
+  const animalInfo = req.body;
+
+  if (!animalInfo) {
+    res
+      .status(400)
+      .json({ error: "You must provide data to update an animal" });
+    return;
+  }
+  if (!animalInfo.name || !animalInfo.animalType) {
+    res.status(400).json({ error: "You must provide name or animalType" });
+    return;
+  }
+
+  try {
+    await animalData.get(req.params.id);
+  } catch (e) {
+    res.status(404).json({ error: "Animal not found" });
+    return;
+  }
+
+  try {
+    const updatedAnimal = await animalData.update(req.params.id, animalInfo);
+    res.json(updatedAnimal);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
+
+/* DELETE /animals/{id} */
+// doesnt work
+router.delete(":/id", async (req, res) => {
+  try {
+    await animalData.get(req.params.id);
+  } catch (e) {
+    res.status(404).json({ error: "Animal not found" });
+    return;
+  }
+
+  try {
+    const deletedAnimal = await animalData.remove(req.params.id);
+    res.status(200).json(deletedAnimal);
+  } catch (e) {
+    res.sendStatus(500);
+    return;
   }
 });
 

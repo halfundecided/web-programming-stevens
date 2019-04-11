@@ -63,23 +63,24 @@ module.exports = {
 
     return deletionInfo;
   },
-  async rename(id, newName) {
+  async update(id, updateInfo) {
     if (typeof id === "undefined" || id.constructor !== String)
       throw `${id} invalid id`;
-    if (typeof newName === "undefined" || newName.constructor !== String)
-      throw `not proper name`;
+    if (typeof updateInfo === "undefined" || updateInfo.constructor !== Object)
+      throw `not proper types`;
 
     const animalCollection = await animals();
     const parsedId = ObjectId.createFromHexString(id);
-    const renamedAnimal = {
-      name: newName
+    const updatedAnimal = {
+      newName: updateInfo.name,
+      newType: updateInfo.animalType
     };
 
-    const renamedInfo = await animalCollection.updateOne(
+    const updatedInfo = await animalCollection.updateOne(
       { _id: parsedId },
-      { $set: renamedAnimal }
+      { $set: updatedAnimal }
     );
-    if (renamedInfo.modifiedCount === 0)
+    if (updatedInfo.modifiedCount === 0)
       throw "could not rename animal successfully";
 
     return await this.get(id);
