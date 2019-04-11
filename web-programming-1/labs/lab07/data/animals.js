@@ -3,17 +3,17 @@ const animals = mongoCollections.animals;
 const { ObjectId } = require("mongodb");
 
 module.exports = {
-  async create(name, animalType, likes) {
+  async create(name, animalType) {
     if (
       typeof name === "undefined" ||
-      typeof animalType === "undefined" ||
-      typeof likes === "undefined"
+      typeof animalType === "undefined"
+      // typeof likes === "undefined"
     )
       throw `arguments not provided`;
     if (
       name.constructor !== String ||
-      animalType.constructor !== String ||
-      likes.constructor !== Array
+      animalType.constructor !== String
+      // likes.constructor !== Array
     )
       throw `Both name and animalType should be string`;
 
@@ -22,7 +22,7 @@ module.exports = {
     let newAnimal = {
       name: name,
       animalType: animalType,
-      likes: likes,
+      likes: [],
       posts: []
     };
 

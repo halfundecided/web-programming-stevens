@@ -14,7 +14,7 @@ module.exports = {
       throw `arguments not provided`;
     if (title.constructor !== String) throw "No title provided";
     //object id???
-    if (author.constructor !== String) throw "invalid id";
+    if (author.constructor !== Object) throw "invalid id";
     if (content.constructor !== String) throw "No content provided";
 
     const postCollection = await posts();
