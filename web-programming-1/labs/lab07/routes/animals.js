@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const animalData = data.animals;
+const postData = data.posts;
 
 /* GET /animals */
 router.get("/", async (req, res) => {
@@ -88,21 +89,32 @@ router.put("/:id", async (req, res) => {
 
 /* DELETE /animals/{id} */
 router.delete("/:id", async (req, res) => {
-  console.log("test");
   try {
-    await animalData.get(req.params.id);
+    // console.log("test");
+    const thisAnimal = await animalData.get(req.params.id);
+    console.log(thisAnimal.posts[0]._id);
+    for (let i = 0; i < thisAnimal.posts.length; i++) {
+      await postData.deletePost(thisAnimal.posts[i]._id);
+    }
+    // await postData.deleteAllAnimalPosts(req.param.id);
   } catch (e) {
     res.status(404).json({ error: "Animal not found" });
     return;
   }
 
   try {
-    const deletedAnimal = await animalData.remove(req.params.id);
-    res.status(200).json(deletedAnimal);
-  } catch (e) {
-    res.sendStatus(500);
-    return;
+    const deletedPost = await 
   }
+
+  // try {
+  //   const deletedAnimal = await animalData.remove(req.params.id);
+  //   res.status(200).json(deletedAnimal);
+  // } catch (e) {
+  //   res.sendStatus(500);
+  //   return;
+  // }
+
+  
 });
 
 module.exports = router;

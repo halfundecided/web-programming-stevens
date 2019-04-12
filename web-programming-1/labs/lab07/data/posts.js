@@ -92,5 +92,21 @@ module.exports = {
       throw `Could not delete post with id of ${id}`;
 
     return deletionInfo;
+  },
+  async deleteAllAnimalPosts(animalId) {
+    if (typeof id === "undefined" || animalId.constructor !== String)
+      throw `${id} invalid id`;
+
+    const postCollection = await posts();
+    const parsedId = ObjectId.createFromHexString(animalId);
+    const deletedPosts = await postCollection.remove(
+      { author: animalId },
+      false
+    );
+
+    if (deletedPosts.deletedCount === 0)
+      throw `Could not delete all post with id of ${id}`;
+
+    return 0;
   }
 };
