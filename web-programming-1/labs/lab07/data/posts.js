@@ -1,6 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
-const animals = require("./animals");
+const animals = mongoCollections.animals;
 const { ObjectId } = require("mongodb");
 
 //create, read, update, delete
@@ -11,31 +11,27 @@ module.exports = {
     const allPosts = await postCollection.find({}).toArray();
     return allPosts;
   },
-  async createPost(title, author, content) {
+  async createPost(author, title, content) {
     if (
-      typeof title === "undefined" ||
       typeof author === "undefined" ||
+      typeof title === "undefined" ||
       typeof content === "undefined"
     )
       throw `arguments not provided`;
     if (title.constructor !== String) throw "No title provided";
-    //object id???
     if (author.constructor !== String) throw "invalid id";
     if (content.constructor !== String) throw "No content provided";
 
     const postCollection = await posts();
-    const animalThatPosted = await animals.get(author);
 
     const newPost = {
       title: title,
-      author: `${animalThatPosted.name}`,
+      author: author,
       content: content
     };
 
     const insertInfo = await postCollection.insertOne(newPost);
     if (insertInfo.insertedCount === 0) throw "Could not add post";
-
-    // **** DO ADDPOSTTOUSER HERE *****
 
     return await postCollection.findOne({
       _id: ObjectId(insertInfo.insertedId)
@@ -70,8 +66,8 @@ module.exports = {
     const parsedId = ObjectId.createFromHexString(id);
 
     const updatedPost = {
-      newTitle: newTitle,
-      newContent: newContent
+      title: newTitle,
+      content: newContent
     };
 
     const updatedInfo = await postCollection.updateOne(

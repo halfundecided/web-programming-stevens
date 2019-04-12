@@ -7,7 +7,11 @@ const animalData = data.animals;
 router.get("/", async (req, res) => {
   try {
     const animalList = await animalData.getAll();
-    res.json(animalList);
+    const giveMeAll = [];
+    for (let i = 0; i < animalList.length; i++) {
+      giveMeAll.push(await animalData.get(String(animalList[i]._id)));
+    }
+    res.json(giveMeAll);
   } catch (e) {
     res.status(404).json({ message: "not found!" });
   }
@@ -16,7 +20,6 @@ router.get("/", async (req, res) => {
 /* POST /animals */
 router.post("/", async (req, res) => {
   const animalInfo = req.body;
-  console.log(animalInfo);
 
   if (!animalInfo) {
     res
@@ -24,19 +27,19 @@ router.post("/", async (req, res) => {
       .json({ error: "You must provide data to create an animal" });
     return;
   }
-  if (!animalInfo.newName) {
+  if (!animalInfo.name) {
     res.status(400).json({ error: "You must provide a name" });
     return;
   }
-  if (!animalInfo.newType) {
+  if (!animalInfo.animalType) {
     res.status(400).json({ error: "You must provide an animalType" });
     return;
   }
 
   try {
     const newAnimal = await animalData.create(
-      animalInfo.newName,
-      animalInfo.newType
+      animalInfo.name,
+      animalInfo.animalType
     );
     res.json(newAnimal);
   } catch (e) {
@@ -57,14 +60,13 @@ router.get("/:id", async (req, res) => {
 /* PUT /animals/{id} */
 router.put("/:id", async (req, res) => {
   const animalInfo = req.body;
-
   if (!animalInfo) {
     res
       .status(400)
       .json({ error: "You must provide data to update an animal" });
     return;
   }
-  if (!animalInfo.name || !animalInfo.animalType) {
+  if (!animalInfo.newName || !animalInfo.newType) {
     res.status(400).json({ error: "You must provide name or animalType" });
     return;
   }
@@ -85,8 +87,8 @@ router.put("/:id", async (req, res) => {
 });
 
 /* DELETE /animals/{id} */
-// doesnt work
-router.delete(":/id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
+  console.log("test");
   try {
     await animalData.get(req.params.id);
   } catch (e) {

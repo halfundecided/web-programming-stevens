@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "seed": "node ./tasks/seed.js"
+    "start": "node index.js"
   },
   "author": "Mijeong Ban",
   "license": "ISC",

@@ -1,5 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const animals = mongoCollections.animals;
+const posts = mongoCollections.posts;
 const { ObjectId } = require("mongodb");
 
 module.exports = {
@@ -22,8 +23,7 @@ module.exports = {
     let newAnimal = {
       name: name,
       animalType: animalType,
-      likes: [],
-      posts: []
+      likes: []
     };
 
     const insertInfo = await animalCollection.insertOne(newAnimal);
@@ -32,29 +32,38 @@ module.exports = {
       _id: ObjectId(insertInfo.insertedId)
     });
   },
-  async getAll() {
-    const animalCollection = await animals();
-
-    const allAnimals = await animalCollection.find({}).toArray();
-    return allAnimals;
-  },
   async get(id) {
     if (typeof id === "undefined" || id.constructor !== String)
       throw `${id} invalid id`;
 
     const animalCollection = await animals();
-    const parsedId = ObjectId.createFromHexString(id);
+    const postCollection = await posts();
+    const parsedId = ObjectId(id);
     const thisAnimal = await animalCollection.findOne({ _id: parsedId });
     if (thisAnimal === null) throw "No animal with this id";
 
+    const animalPosts = await postCollection
+      .find({
+        author: String(thisAnimal._id)
+      })
+      .project({ title: 1 })
+      .toArray();
+
+    thisAnimal["posts"] = animalPosts;
+
     return thisAnimal;
+  },
+  async getAll() {
+    const animalCollection = await animals();
+    const allAnimals = await animalCollection.find({}).toArray();
+    return allAnimals;
   },
   async remove(id) {
     if (typeof id === "undefined" || id.constructor !== String)
       throw `${id} invalid id`;
 
     const animalCollection = await animals();
-    const parsedId = ObjectId.createFromHexString(id);
+    const parsedId = ObjectId(id);
     const deletionInfo = await animalCollection.findOne({ _id: parsedId });
     const deletion = await animalCollection.removeOne({ _id: parsedId });
 
@@ -72,8 +81,8 @@ module.exports = {
     const animalCollection = await animals();
     const parsedId = ObjectId.createFromHexString(id);
     const updatedAnimal = {
-      newName: updateInfo.name,
-      newType: updateInfo.animalType
+      name: updateInfo.newName,
+      animalType: updateInfo.newType
     };
 
     const updatedInfo = await animalCollection.updateOne(

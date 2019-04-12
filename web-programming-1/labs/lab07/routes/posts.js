@@ -2,11 +2,20 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const postData = data.posts;
+const animalData = data.animals;
 
-/* GET /posts */
 router.get("/", async (req, res) => {
   try {
     const postList = await postData.getAll();
+    for (let i = 0; i < postList.length; i++) {
+      const thisAuthor = postList[i];
+      const thisAuthorName = await animalData.get(thisAuthor.author);
+      const author = {
+        _id: `${thisAuthor._id}`,
+        name: `${thisAuthorName.name}`
+      };
+      postList[i].author = author;
+    }
     res.json(postList);
   } catch (e) {
     res.status(404).json({ error: "not found!" });
@@ -15,11 +24,30 @@ router.get("/", async (req, res) => {
 
 /* POST /posts */
 router.post("/", async (req, res) => {
-  const post = req.body;
-  try {
-    const { title, author, content } = post;
-    const newPost = await postData.createPost(title, author, content);
+  const postInfo = req.body;
 
+  if (!postInfo) {
+    res.status(400).json({ error: "You must provide data to create a post" });
+    return;
+  }
+  if (!postInfo.title) {
+    res.status(400).json({ error: "You must provide a title" });
+    return;
+  }
+  if (!postInfo.author) {
+    res.status(400).json({ error: "You must provide author's id" });
+    return;
+  }
+  if (!postInfo.content) {
+    res.status(400).json({ error: "You must provide a content" });
+  }
+
+  try {
+    const newPost = await postData.createPost(
+      postInfo.author,
+      postInfo.title,
+      postInfo.content
+    );
     res.json(newPost);
   } catch (e) {
     res.status(500).json({ error: e });
@@ -30,6 +58,12 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const post = await postData.readPost(req.params.id);
+    const thisAuthor = await animalData.get(post.author);
+    const author = {
+      _id: `${thisAuthor._id}`,
+      name: `${thisAuthor.name}`
+    };
+    post.author = author;
     res.json(post);
   } catch (e) {
     res.status(404).json({ error: "Post not found" });
@@ -51,7 +85,7 @@ router.put("/:id", async (req, res) => {
   }
 
   try {
-    await postData.get(req.params.id);
+    await postData.readPost(req.params.id);
   } catch (e) {
     res.status(404).json({ error: "Post not found" });
     return;
@@ -60,9 +94,15 @@ router.put("/:id", async (req, res) => {
   try {
     const updatedPost = await postData.updatePost(
       req.params.id,
-      postInfo.title,
-      postInfo.content
+      postInfo.newTitle,
+      postInfo.newContent
     );
+    const thisAuthor = await animalData.get(updatedPost.author);
+    const author = {
+      _id: `${thisAuthor._id}`,
+      name: `${thisAuthor.name}`
+    };
+    updatedPost.author = author;
     res.json(updatedPost);
   } catch (e) {
     res.sendStatus(500);
@@ -72,8 +112,19 @@ router.put("/:id", async (req, res) => {
 /* DELETE /posts/{id} */
 router.delete("/:id", async (req, res) => {
   try {
-    await postData.get(req.params.id);
-  } catch (e) {}
+    await postData.readPost(req.params.id);
+  } catch (e) {
+    res.status(404).json({ error: "Post not found" });
+    return;
+  }
+
+  try {
+    const deletedPost = await postData.deletePost(req.params.id);
+    res.status(200).json(deletedPost);
+  } catch (e) {
+    res.sendStatus(500);
+    return;
+  }
 });
 
 module.exports = router;
