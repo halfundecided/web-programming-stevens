@@ -1,7 +1,7 @@
 {
   "name": "lab07",
   "version": "1.0.0",
-  "description": "## Animal Farm 2: For this lab, we are going to make more parts of the database for a social media website for animals, as well as developing a simple API to interact with your application.",
+  "description": "Animal Farm 2",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

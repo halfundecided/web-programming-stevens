@@ -3,7 +3,7 @@
 ## Prime Numbers
 
 For this lab, you will be using HTML, CSS, and JavaScript on the user's browser to make a simple Prime Number checker!  
-You will create an express server with a simgle page at the location `/` that will provide the user with a web page to allow them to check if a number is a prime. **The entire checking operation will be done using client-side JavaScript.**
+You will create an express server with a single page at the location `/` that will provide the user with a web page to allow them to check if a number is a prime. **The entire checking operation will be done using client-side JavaScript.**
 
 ## The Server
 
