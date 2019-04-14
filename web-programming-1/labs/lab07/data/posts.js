@@ -40,10 +40,18 @@ module.exports = {
   async readPost(id) {
     if (typeof id === "undefined" || id.constructor !== String)
       throw `Post ${id} invalid id`;
-
     const postCollection = await posts();
     const parsedId = ObjectId.createFromHexString(id);
     const thisPost = await postCollection.findOne({ _id: parsedId });
+    if (thisPost === null) throw "No post with this id";
+
+    return thisPost;
+  },
+  async getPostByObject(id) {
+    if (typeof id === "undefined" || id.constructor !== Object)
+      throw `Post ${id} invalid id`;
+    const postCollection = await posts();
+    const thisPost = await postCollection.find({ _id: id });
     if (thisPost === null) throw "No post with this id";
 
     return thisPost;
@@ -82,7 +90,6 @@ module.exports = {
   async deletePost(id) {
     if (typeof id === "undefined" || id.constructor !== String)
       throw `${id} invalid id`;
-
     const postCollection = await posts();
     const parsedId = ObjectId.createFromHexString(id);
     const deletionInfo = await postCollection.findOne({ _id: parsedId });
@@ -92,21 +99,5 @@ module.exports = {
       throw `Could not delete post with id of ${id}`;
 
     return deletionInfo;
-  },
-  async deleteAllAnimalPosts(animalId) {
-    if (typeof id === "undefined" || animalId.constructor !== String)
-      throw `${id} invalid id`;
-
-    const postCollection = await posts();
-    const parsedId = ObjectId.createFromHexString(animalId);
-    const deletedPosts = await postCollection.remove(
-      { author: animalId },
-      false
-    );
-
-    if (deletedPosts.deletedCount === 0)
-      throw `Could not delete all post with id of ${id}`;
-
-    return 0;
   }
 };

@@ -131,7 +131,6 @@ module.exports = {
       throw `arguments not provided`;
     if (userId.constructor !== String || postId.constructor !== String)
       throw `invalid arguments`;
-
     const animalCollection = await animals();
     const parsedUserId = ObjectId.createFromHexString(userId);
     const parsedPostId = ObjectId.createFromHexString(postId);
@@ -144,9 +143,9 @@ module.exports = {
       { _id: parsedUserId },
       { $pull: removePost }
     );
+
     if (updatedUserWithPost.modifiedCount === 0)
       throw "could not remove the post successfully";
-
     return await this.get(id);
   }
 };

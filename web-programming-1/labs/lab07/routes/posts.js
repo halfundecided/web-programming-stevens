@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
       const thisAuthor = postList[i];
       const thisAuthorName = await animalData.get(thisAuthor.author);
       const author = {
-        _id: `${thisAuthor._id}`,
+        _id: `${thisAuthor.author}`,
         name: `${thisAuthorName.name}`
       };
       postList[i].author = author;
@@ -59,6 +59,7 @@ router.get("/:id", async (req, res) => {
   try {
     const post = await postData.readPost(req.params.id);
     const thisAuthor = await animalData.get(post.author);
+
     const author = {
       _id: `${thisAuthor._id}`,
       name: `${thisAuthor.name}`

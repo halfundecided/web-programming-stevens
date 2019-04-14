@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
       animalInfo.name,
       animalInfo.animalType
     );
-    res.json(newAnimal);
+    res.status(200).json(newAnimal);
   } catch (e) {
     res.sendStatus(500);
   }
@@ -90,31 +90,26 @@ router.put("/:id", async (req, res) => {
 /* DELETE /animals/{id} */
 router.delete("/:id", async (req, res) => {
   try {
-    // console.log("test");
     const thisAnimal = await animalData.get(req.params.id);
-    console.log(thisAnimal.posts[0]._id);
     for (let i = 0; i < thisAnimal.posts.length; i++) {
-      await postData.deletePost(thisAnimal.posts[i]._id);
+      await postData.deletePost(String(thisAnimal.posts[i]._id));
     }
-    // await postData.deleteAllAnimalPosts(req.param.id);
   } catch (e) {
     res.status(404).json({ error: "Animal not found" });
     return;
   }
 
   try {
-    const deletedPost = await 
+    const printDeletedAnimal = {};
+    const deletedAnimalData = await animalData.get(req.params.id);
+    await animalData.remove(req.params.id);
+    printDeletedAnimal.deleted = true;
+    printDeletedAnimal.data = deletedAnimalData;
+    res.status(200).json(printDeletedAnimal);
+  } catch (e) {
+    res.sendStatus(500);
+    return;
   }
-
-  // try {
-  //   const deletedAnimal = await animalData.remove(req.params.id);
-  //   res.status(200).json(deletedAnimal);
-  // } catch (e) {
-  //   res.sendStatus(500);
-  //   return;
-  // }
-
-  
 });
 
 module.exports = router;
