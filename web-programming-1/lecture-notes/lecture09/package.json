@@ -1,0 +1,11 @@
+{
+  "name": "lecture09",
+  "version": "1.0.0",
+  "description": "## Client Side JavaScript",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mijeong Ban",
+  "license": "ISC"
+}
