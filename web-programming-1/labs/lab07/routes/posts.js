@@ -48,7 +48,14 @@ router.post("/", async (req, res) => {
       postInfo.title,
       postInfo.content
     );
-    res.json(newPost);
+    const thisAuthor = await animalData.get(newPost.author);
+
+    const author = {
+      _id: `${thisAuthor._id}`,
+      name: `${thisAuthor.name}`
+    };
+    newPost.author = author;
+    res.status(200).json(newPost);
   } catch (e) {
     res.status(500).json({ error: e });
   }
@@ -65,7 +72,7 @@ router.get("/:id", async (req, res) => {
       name: `${thisAuthor.name}`
     };
     post.author = author;
-    res.json(post);
+    res.status(200).json(post);
   } catch (e) {
     res.status(404).json({ error: "Post not found" });
   }
@@ -120,8 +127,19 @@ router.delete("/:id", async (req, res) => {
   }
 
   try {
-    const deletedPost = await postData.deletePost(req.params.id);
-    res.status(200).json(deletedPost);
+    const printDeletedPost = {};
+    const deletedPostData = await postData.readPost(req.params.id);
+    console.log(deletedPostData);
+    const thisAuthor = await animalData.get(deletedPostData.author);
+    const author = {
+      _id: `${thisAuthor._id}`,
+      name: `${thisAuthor.name}`
+    };
+    deletedPostData.author = author;
+    await postData.deletePost(req.params.id);
+    printDeletedPost.deleted = true;
+    printDeletedPost.data = deletedPostData;
+    res.json(printDeletedPost);
   } catch (e) {
     res.sendStatus(500);
     return;
