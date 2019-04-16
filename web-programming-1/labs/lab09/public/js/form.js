@@ -18,7 +18,8 @@
   const mjForm = document.getElementById("mjForm");
 
   if (mjForm) {
-    const userInput = document.getElementsByName("inputNumber");
+    const userInput = document.getElementbyId("inputNumber");
+
     const attempts = document.getElementById("attempts");
 
     const error_container = document.getElementById("error-container");
@@ -26,26 +27,28 @@
       "error-message"
     )[0];
 
-    mjForm.addEventListener("submit", e => {
-      e.preventDefault();
+    mjForm.addEventListener("submit", event => {
+      event.preventDefault();
 
-      try {
-        const input_value = userInput;
-        let is_prime = checkPrime(input_value);
-        let li = document.createElement("li");
-        li.innerHTML = input_value;
+      if (userInput.value) {
+        try {
+          const input_value = userInput.value;
+          let is_prime = checkPrime(input_value);
+          let li = document.createElement("li");
+          li.innerHTML = input_value;
 
-        if (is_prime === true) {
-          li.className = "is-prime";
-        } else {
-          li.className = "not-prime";
+          if (is_prime === true) {
+            li.className = "is-prime";
+          } else {
+            li.className = "not-prime";
+          }
+          attempts.append(li);
+        } catch (e) {
+          error_container.classList.remove("hidden");
+          const errormessage = typeof e === "string" ? e : e.message;
+          error_message.textContent = errormessage;
+          error_container.classList.remove("hidden");
         }
-        attempts.append(li);
-      } catch (e) {
-        error_conntainer.classList.remove("hidden");
-        const errormessage = typeof e === "string" ? e : e.message;
-        error_message.textContent = errormessage;
-        error_container.classList.remove("hidden");
       }
     });
   }
