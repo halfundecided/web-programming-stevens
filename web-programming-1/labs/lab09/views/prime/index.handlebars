@@ -1,25 +1,18 @@
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>People Finder</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../../public/css/site.css" />
-</head>
-
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Search again?</a></li>
-        </ul>
-    </nav>
-    <h1>People Finder</h1>
-    <main>
-        <p>Hello Rob, Keep in mind that I'm your TA too.</p>
-        <form method="GET" action="/search">
-            <label name="personName" id="id">Person Name</label>
-            <input type="text" name="personName" placeholder="enter name" value="" id="id" />
-            <button class="btn" type="submit">Search</button>
+<section>
+    <h4>Enter a number here</h4>
+    <div class="form">
+        <form method="POST" action="/results">
+            <div class="form-group">
+                <label name="inputNumber">Check if the number is prime or not!</label>
+                <input type="text" class="form-control" id="inputNumber" placeholder="Enter a number">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    </main>
+        <div class="alert alert-danger hidden" role="alert" id="error-container">
+            A simple danger alert—check it out!
+        </div>
+        <ol id="attempts"></ol>
+    </div>
 
-</body>
+</section>
+<script src="public/js/form.js"></script>
