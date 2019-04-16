@@ -1,15 +1,16 @@
 <section>
     <h4>Enter a number here</h4>
     <div class="form">
-        <form method="POST" action="/results">
+        <form method="POST" action="/results" id="mjForm">
             <div class="form-group">
                 <label name="inputNumber">Check if the number is prime or not!</label>
-                <input type="text" class="form-control" id="inputNumber" placeholder="Enter a number">
+                <input type="number" class="form-control" name="inputNumber" placeholder="Enter a number">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-dark">Submit</button>
         </form>
-        <div class="alert alert-danger hidden" role="alert" id="error-container">
-            A simple danger alert—check it out!
+        <div class="form-group hidden" id="error-container">
+            <div class="alert alert-danger error-message" role="alert">
+            </div>
         </div>
         <ol id="attempts"></ol>
     </div>
