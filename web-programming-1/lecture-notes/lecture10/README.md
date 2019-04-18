@@ -101,3 +101,83 @@ We will be using the cookie-parser middleware in order to easily handle out cook
   - Deleting cookies requires you to expire the cookies, which we can do by setting the cookie with the expires option set to any time in the past, then calling `response.clearCookie(name)`
 
 ## Cookie Based Authentication using Express, Middleware, and MongoDB
+
+### What is authentication?
+
+Authentication is the act of confirming the idenntity of a person, group, or entity. In web technology, this often means creating a **user login system**
+
+- You will use a combination of data in order to identify a user.  
+  There are many other forms of authentication in web technology:
+- You can make an authentication system that allows you to limit API Access
+  - Force users to have a token
+  - Allow users a certain number of access hits a month
+- You can selectively allow or dis-allow access to resources based on user login state
+
+### Implementing Authenticationn
+
+In order to implement authentication and create a user login system, we will breaking down the task into several steps:
+
+- Creating and storing users
+- Allowing users to login via a form
+- Storing session data in a cookie
+- Validating the data stored in the cookie
+- Storing the user as part of the request object.
+
+### 1. Creating and Storing Users
+
+The first step of authentication is very, very easy; you hate to create, and store users.  
+There are some things you will be storing, and some things you will be storing in a very specific way
+
+- First off, **you will never store a plaintext password.** You will be using the **bcrypt** package in order to create a hash of the password
+- For the sake of authentication, you're going to be adding an array for users that will keep track of multiple session identifiers. These session identifiers will allow you to keep track of logged in browser sessions
+
+You will need to create a form to allow users to signup, where you will need to check for:
+
+- Duplicate username / emails / other non-duplicatable data
+- Existence of passwords
+
+### 2. Allowing users to login via a form
+
+This step is extremely easy!  
+You will need to provide users with some way to actually perform a login. You will need to setup a form that allows users to POST their username and password to a route.  
+This route will nneed to validate the username and password provided against entries in the database.
+
+- You will retrieve the user with that matchinng username
+- You will use **bcrypt** to compare if their supplied password is a match to the their **hashed password**  
+  I have created a simple file, bcrypt_example.js to demonstrate how to use bcrypt to create and compare hashes.  
+  If there is a match, you can proceed; if not you will simply allow the request to continue.
+
+### 3. Storing session data in a cookie
+
+If the user logged in with proper credentials, you will then create a session id! This session id should be some sort of very long identifier, such as a Guid.  
+Rather than storing the user id or username, and password in cookies, we instead are opting to store a session id so that the username or password cannot be intercepted.  
+This session id will be passed to the user via-cookie and will also be stored as one of many session ids on the user in the database.
+
+### 4. Validating the data stored in the cookie
+
+It is now time to make your middleware!  
+Your middleware should run on each request, and will check for a cookie containing a session ID  
+If it contains a session id, you will check the database for a single user that has that session id stored in their session id field
+
+- If there is a match, you’ve found your user!
+- If not, your request is coming from an unauthenticated source; expire their cookie.  
+  If not, your request is coming from an unauthenticated source.
+
+### 5. Storing the user in the request object
+
+In your middleware, you have access to the request and the response objects, and you can add properties to them easily.  
+If you are able to associate a session id with a user, you may define a property on the request (or response!) object that stores the user, or some representation of them (ie: just storing the user id).  
+The data you store will be accessible:
+
+- In middleware that are defined after the authentication middleware
+- In your routes  
+  If you define middleware after your authentication middleware, you can attach them to particular paths (such as /user) and, if a user is not logged in, you can redirect them. You can also do things such as check on other paths (ie: /admin) to see if the user has permission to access those paths, and redirect if not.
+
+### Logging Out
+
+Logging out is extremely easy, and only has two steps!
+
+- After hitting a logout route, you will expire the cookie for the session id
+- You will remove the session id from the user’s session id list
+- You will invalidate any other cookies that are relevant to the user.  
+  By doing both of those, you will have successfully invalidated the session and the user will no longer be authenticated.
