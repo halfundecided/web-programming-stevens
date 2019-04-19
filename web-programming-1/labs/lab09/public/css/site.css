@@ -13,6 +13,26 @@ footer {
   display: flex;
   justify-content: space-around;
 }
+footer p {
+  color: gray;
+}
 .hidden {
   display: none;
+}
+li.is-prime {
+  color: #00e676;
+}
+li.not-prime {
+  color: #ff3d00;
+}
+ol {
+  list-style: none;
+}
+ol li {
+  text-align: center;
+  margin-right: 2.5rem;
+  font-size: 1.5rem;
+}
+button {
+  margin-bottom: 1rem;
 }

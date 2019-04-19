@@ -1,9 +1,10 @@
 (function() {
   function checkPrime(input) {
-    if (!input) {
-      throw `You must provide a number`;
-    }
-    if (input === 1) {
+    // if (!input) {
+    //   throw `You must provide a number`;
+    // }
+    if (input < 0) return -1;
+    if (input == 0 || input == 1) {
       return false;
     } else if (input === 2) {
       return true;
@@ -18,37 +19,42 @@
   const mjForm = document.getElementById("mjForm");
 
   if (mjForm) {
-    const userInput = document.getElementbyId("inputNumber");
-
-    const attempts = document.getElementById("attempts");
-
-    const error_container = document.getElementById("error-container");
-    const error_message = error_container.getElementsByClassName(
-      "error-message"
-    )[0];
-
     mjForm.addEventListener("submit", event => {
       event.preventDefault();
+      const error_container = document.getElementById("error-container");
+      error_container.classList.add("hidden");
 
-      if (userInput.value) {
-        try {
-          const input_value = userInput.value;
-          let is_prime = checkPrime(input_value);
-          let li = document.createElement("li");
-          li.innerHTML = input_value;
+      const userInput = document.getElementById("inputNumber").value;
 
-          if (is_prime === true) {
-            li.className = "is-prime";
-          } else {
-            li.className = "not-prime";
-          }
-          attempts.append(li);
-        } catch (e) {
-          error_container.classList.remove("hidden");
-          const errormessage = typeof e === "string" ? e : e.message;
-          error_message.textContent = errormessage;
+      if (userInput) {
+        const attempts = document.getElementById("attempts");
+
+        let is_prime = checkPrime(userInput);
+        let li = document.createElement("li");
+
+        if (is_prime === true) {
+          li.innerHTML = `${userInput} is a prime number`;
+          li.className = "is-prime";
+        } else if (is_prime === false) {
+          li.innerHTML = `${userInput} is NOT a prime number`;
+          li.className = "not-prime";
+        } else {
+          const error_container = document.getElementById("error-container");
+          const error_message = error_container.getElementsByClassName(
+            "error-message"
+          )[0];
+          error_message.textContent =
+            "Negative numbers are not allowed for this input";
           error_container.classList.remove("hidden");
         }
+        attempts.append(li);
+      } else {
+        const error_container = document.getElementById("error-container");
+        const error_message = error_container.getElementsByClassName(
+          "error-message"
+        )[0];
+        error_message.textContent = "You need to supply an input value!";
+        error_container.classList.remove("hidden");
       }
     });
   }
