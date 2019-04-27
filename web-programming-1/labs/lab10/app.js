@@ -8,7 +8,7 @@ const session = require("express-session");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   session({

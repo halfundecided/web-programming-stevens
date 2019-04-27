@@ -1,4 +1,4 @@
-module.exports = [
+const users = [
   {
     _id: 0,
     username: "masterdetective123",
@@ -33,3 +33,20 @@ module.exports = [
       "$2a$16$4o0WWtrq.ZefEmEbijNCGukCezqWTqz1VWlPm/xnaLM8d3WlS5pnK"
   }
 ];
+
+const getUserById = id => {
+  if (typeof id === "undefined") throw `no id provided`;
+  for (let i = 0; i < users.length; i++) {
+    if (id === users[i]._id) return users[i];
+  }
+  throw `no user by this id`;
+};
+
+const getUsers = () => {
+  return users;
+};
+
+module.exports = {
+  getUserById,
+  getUsers
+};

@@ -30,7 +30,8 @@ router.post("/login", async (req, res) => {
     try {
       result = await bcrypt.compare(password, user[i].hashedPassword);
     } catch (e) {
-      res.status(400).json({ error: e });
+      console.log("are you here?");
+      //   res.status(400).json({ error: e });
     }
     if (result === true) {
       res.cookie("AuthCookie", users[num]._id);

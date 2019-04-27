@@ -8,19 +8,24 @@ router.use(function(req, res, next) {
     const sessionId = req.cookies.AuthCookie;
     var notValid = false;
     try {
-      let currUser = userData.getUserById(sessionId);
+      var currUser = userData.getUserById(sessionId);
     } catch (e) {
       res.status(403).json({ e: "Not Valid sessionId" });
       notValid = true;
     }
 
     if (notValid === false) {
+      console.log(
+        `[${new Data().toUTCString()}] ${req.method} / ${req.originalUrl}`
+      );
       next();
     }
   } else {
-    res.status(403).render("login", {
-      error: "ERROR: You are not logged in!"
+    res.render("error", {
+      message: "You are not logged in!",
+      error: "Error: You are not logged in."
     });
+    res.status(403).send("not currently logged in.");
   }
 });
 
