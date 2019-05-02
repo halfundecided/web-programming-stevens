@@ -12,6 +12,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+var requestLog = function(req, res, next) {
+  console.log(
+    `[${new Date().toUTCString()}] ${req.method} / ${req.originalUrl}`
+  );
+  next();
+};
+router.use(requestLog);
+
 router.post("/login", async (req, res) => {
   try {
     let username = req.body.username;
@@ -36,9 +44,9 @@ router.post("/login", async (req, res) => {
       res.redirect("/private");
     } else {
       // password wrong
-      // res.status(401).render("login", {
-      //   error: "ERROR: Incorrect Username and/or Password"
-      // });
+      res.status(401).render("error", {
+        message: "ERROR: Incorrect Username and/or Password"
+      });
     }
   } catch (e) {
     res.status(500).json({ error: e });

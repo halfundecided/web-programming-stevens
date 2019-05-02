@@ -4,14 +4,14 @@ const router = express.Router();
 const data = require("../data");
 const userData = data.users;
 
-// middleware log
-var requestLog = function(req, res, next) {
-  console.log(
-    `[${new Date().toUTCString()}] ${req.method} / ${req.originalUrl}`
-  );
-  next();
-};
-router.use(requestLog);
+// // middleware log
+// var requestLog = function(req, res, next) {
+//   console.log(
+//     `[${new Date().toUTCString()}] ${req.method} / ${req.originalUrl}`
+//   );
+//   next();
+// };
+// router.use(requestLog);
 
 var currUser = {};
 router.use(function(req, res, next) {
@@ -21,7 +21,9 @@ router.use(function(req, res, next) {
     try {
       currUser = userData.getUserById(sessionId);
     } catch (e) {
-      res.status(403).json({ e: "Not Valid sessionId" });
+      res.status(403).render("error", {
+        message: "ERROR: Incorrect Username and/or Password"
+      });
       notValid = true;
     }
 
@@ -30,8 +32,7 @@ router.use(function(req, res, next) {
     }
   } else {
     res.render("error", {
-      message: "You are not logged in!",
-      error: "Error: You are not logged in."
+      message: "ERROR: You are not logged in!"
     });
     res.status(403).send("not currently logged in.");
   }
