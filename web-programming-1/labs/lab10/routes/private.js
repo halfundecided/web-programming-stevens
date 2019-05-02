@@ -1,23 +1,31 @@
 const express = require("express");
+const app = express();
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
 
+// middleware log
+var requestLog = function(req, res, next) {
+  console.log(
+    `[${new Date().toUTCString()}] ${req.method} / ${req.originalUrl}`
+  );
+  next();
+};
+router.use(requestLog);
+
+var currUser = {};
 router.use(function(req, res, next) {
   if (req.cookies.AuthCookie) {
     const sessionId = req.cookies.AuthCookie;
     var notValid = false;
     try {
-      var currUser = userData.getUserById(sessionId);
+      currUser = userData.getUserById(sessionId);
     } catch (e) {
       res.status(403).json({ e: "Not Valid sessionId" });
       notValid = true;
     }
 
     if (notValid === false) {
-      console.log(
-        `[${new Data().toUTCString()}] ${req.method} / ${req.originalUrl}`
-      );
       next();
     }
   } else {
@@ -30,7 +38,7 @@ router.use(function(req, res, next) {
 });
 
 router.get("/", async (req, res) => {
-  res.render("private/private", { user: currentUser });
+  res.render("private/private", { user: currUser });
 });
 
 module.exports = router;

@@ -37,7 +37,9 @@ const users = [
 const getUserById = id => {
   if (typeof id === "undefined") throw `no id provided`;
   for (let i = 0; i < users.length; i++) {
-    if (id === users[i]._id) return users[i];
+    if (id == users[i]._id) {
+      return users[i];
+    }
   }
   throw `no user by this id`;
 };
