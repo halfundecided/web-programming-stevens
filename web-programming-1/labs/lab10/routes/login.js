@@ -5,20 +5,12 @@ const userData = data.users;
 const bcrypt = require("bcrypt");
 
 router.get("/", async (req, res) => {
-  if (req.cookies.AuthCookie) {
+  if (req.session.user) {
     res.redirect("/private");
   } else {
     res.render("login", {});
   }
 });
-
-var requestLog = function(req, res, next) {
-  console.log(
-    `[${new Date().toUTCString()}] ${req.method} / ${req.originalUrl}`
-  );
-  next();
-};
-router.use(requestLog);
 
 router.post("/login", async (req, res) => {
   try {
@@ -40,17 +32,27 @@ router.post("/login", async (req, res) => {
       res.status(400).json({ error: e });
     }
     if (result === true) {
-      res.cookie("AuthCookie", users[num]._id);
+      req.session.user = users[num];
+      authenticated = true;
       res.redirect("/private");
     } else {
       // password wrong
+      authenticated = false;
       res.status(401).render("error", {
-        message: "ERROR: Incorrect Username and/or Password"
+        message: "ERROR: Incorrect Username and/or Password this"
       });
     }
   } catch (e) {
-    res.status(500).json({ error: e });
+    res.status(500).json("wrong");
   }
 });
+
+var requestLog = function(req, res, next) {
+  console.log(
+    `[${new Date().toUTCString()}] ${req.method} / ${req.originalUrl}`
+  );
+  next();
+};
+router.use(requestLog);
 
 module.exports = router;
