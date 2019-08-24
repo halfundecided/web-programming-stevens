@@ -5,8 +5,6 @@
 ### Lecture Notes
 
 - [lecture 01](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture01)
-  - Course Introduction
-  - Intro to JavaScript
 - [lecture 02](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture02)
 - [lecture 03](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture03)
 - [lecture 04](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture04)
@@ -14,6 +12,8 @@
 - [lecture 06](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture06)
 - [lecture 07](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture07)
 - [lecture 08](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture08)
+- [lecture 09](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture09)
+- [lecture 10](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/lecture-notes/lecture10)
 
 ### [Labs](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/labs)
 
@@ -25,8 +25,10 @@
 - [Lab 06: JSON Routes](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/labs/lab06)
 - [Lab 07: API](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/labs/lab07)
 - [Lab 08: Handlebars](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/labs/lab08)
+- [Lab 09: Prime Numbers](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/labs/lab09)
+- [Lab 10: Authentication and Middleware](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/labs/lab10)
 
-### [In-class Exercises]()
+### [In-class Exercises](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/inclass-exercises)
 
 - [Exercise 01: Dictionary App](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/inclass-exercises/exercise01)
 - [Exercise 02: JSON Routes](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/inclass-exercises/exercise02)
