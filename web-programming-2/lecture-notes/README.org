@@ -36,4 +36,30 @@ In this course, you will:
   + Submit your final project code. 
 
 *** What are assignments like? 
-There will be assignments most week, 
+There will be assignments most week, designed to make you practice the material that we will go over in class that week.  
+Each assignment will give you a good foundation for the technologies and techniques you will use for the final project.  
+Assignments are incremental: you will be carrying techniques from earlier assignments into later assignments. 
+
+*** What is the final project like? 
+For your final project, you will create a complex web application that fulfills all of the following: 
+  + Uses a frontend framework to create a single page application
+  + Has a responsive design so that the same view works across all sizes of devices 
+  + Runs multiple processes through use of a worker and a web server.
+  + Uses At least two technologies not covered in the course and integrate it into your technology stack. 
+  + Can defend against more complex security attacks 
+  + Uses a NoSQL database 
+  + Extensively uses AJAX
+  + Performs DOM Manipulation and event handling through jQuery or other frameworks 
+
+*** General Policies and Notes 
+You will have ample time to complete each assignment, so lateness will be harshly penalized: 
+  + Late assignments will receive a 15 point reduction per day; this penalty starts the second your assignment is late 
+  + There is no lateness tolerated on final project components; if you miss a deadline, you will receive a 0 for that component.
+  + If some extenuating circumstance occurs that will cause you to be late, and you know in advance that it will cause you to be late, reach out to me as soon as possible.  
+In lieu of a textbook, assignments may suggest research material to assist in their completion. It is beneficial to read the assignments and any suggested research material when the material is posted.  
+If you are having a group issue during the final project period, you must reach out to me as soon as possible; it is much easier for everyone to resolve issues early and amicably than let them destroy a group as the deadline approaches. 
+
+*** Readings 
+Some lectures will come with accompanying slides discussing research and reference materials. I highly suggest that you read all material suggested.  
+It is highly beneficial to read both the lectures slides and reference material before class as a form of preparation.  
+For many assignments and parts of your final project, you will be expected to read some form of documentation in order to learn how to use a particular technology or package. 
