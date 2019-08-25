@@ -82,3 +82,4 @@ For many assignments and parts of your final project, you will be expected to re
 + Async functions are the only types of function that can `await` promises. 
 
 *** What does awaiting do? 
++ Using the `await` keyword will, syntactically, not execute the next line of code until the promise has been resolved or fulfilled. 
