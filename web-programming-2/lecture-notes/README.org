@@ -1,0 +1,39 @@
+#+STARTUP: showall
+#+OPTIONS: num:nil toc:nil
+
+* Lecture 01: Introduction
+
+** Course Introduction
+
+*** What will we be covering in this course? 
+In this course, we will be talking out knowledge of basic website development and applying those principals to more complex web applications with modern technology.   
++ You will be learning advanced CSS techniques 
++ You will be subject to more detailed security issues 
++ You will learn to split up backend and frontend components through the use of JavaScript frameworks 
++ You will learn to use modern technology and multiple processes to achieve very fast web applications
+
+*** How will we cover this material?
+Throughout the semester, we will be learning about out new technologies and skills with assignments focused on each week's content.  
+Most weeks, we will be seeing how our technologies end up playing a role in a single page application environment. The end goal of this course is to submit a sinple page application that works in a distributed-worker environment.  
+Each week, we will also be covering an industry-topic. This will be a 15 - 30 minute introduction to a technology, strategy, or tool you will use extensively during the course of your time working in the industry as a developer.  
+The general format of each lecture will be 90 minutes of lecture and discussion, followed by assignment work.  
+
+*** Grade Breakdown 
++ Assignments: 50%
+  + Assignments will be weighted equally 
+  + Assignments will be given most weeks of the course 
++ Final Project Implementation Plan: 5%
+  + Student will form groups to create a web application, and create an implementation plan detailing all the technology they will be using to create the application. Each group will meeting with the professor to discuss their plan. 
++ Final Project: 45%
+  + For the final project, students will create a web application with multiple backend and frontend components working together, as well as present all aspects of the product to the class. 
+
+*** What will we do in this course?
+In this course, you will: 
+  + Complete many assignments that will assess your understanding of the topics covered in class. These will be programming assignments that you will begin in class most weeks. 
+  + Form a group and come up with an idea for a full web application to use as your final project, which you will submit in the form of a final project proposal.
+  + Create an implementation plan and discuss it with the professor. 
+  + Give a technical presentation demonstrating your project result. 
+  + Submit your final project code. 
+
+*** What are assignments like? 
+There will be assignments most week, 
