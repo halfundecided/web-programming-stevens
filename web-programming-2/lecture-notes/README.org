@@ -80,3 +80,5 @@ For many assignments and parts of your final project, you will be expected to re
 + You can now define a function as an `async` function. This means that the function body will automatically be wrapped in a promise, and will return a promise (even if, syntactically, it just returns a value without any async code).
 + Async functions have the benefit of being able to `await` promises (and, therefore, other async functions).
 + Async functions are the only types of function that can `await` promises. 
+
+*** What does awaiting do? 
