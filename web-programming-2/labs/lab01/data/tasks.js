@@ -170,11 +170,31 @@ const addComment = async (taskId, name, comment) => {
   return 0;
 };
 
+const removeComment = async (taskId, commentId) => {
+  if (typeof taskId === "undefined" || taskId.constructor !== String)
+    throw `You should provide a valid task id`;
+  if (typeof commentId === "undefined" || commentId.constructor !== String)
+    throw `You should provide a valid comment id`;
+
+  const taskCollection = await tasks();
+  const parsedTaskId = ObjectId.createFromHexString(taskId);
+  const parsedCommentId = ObjectId.createFromHexString(commentId);
+
+  const deletionComment = await taskCollection.findOneAndUpdate(
+    { id: parsedTaskId },
+    { $pull: { comments: { _id: parsedCommentId } } }
+  );
+
+  // *** return anything?
+  return 0;
+};
+
 module.exports = {
   getAll,
   getTaskById,
   createTask,
   updateTask,
   updateTaskForPatch,
-  addComment
+  addComment,
+  removeComment
 };
