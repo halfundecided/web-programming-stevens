@@ -14,6 +14,5 @@ const getCollectionFn = collection => {
 };
 
 module.exports = {
-  tasks: getCollectionFn("tasks"),
-  comments: getCollectionFn("comments")
+  tasks: getCollectionFn("tasks")
 };

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const tasksData = data.tasks;
-const commentsData = data.comments;
 
 /**
  * GET /api/tasks
@@ -18,14 +17,51 @@ router.get("/", async (req, res) => {});
  * GET /api/tasks/:id
  * Shows the task with the supplied ID
  */
-router.get("/:id", async (req, res) => {});
+router.get("/:id", async (req, res) => {
+  try {
+    const task = await tasksData.getTaskById(req.params.id);
+    res.status(200).json(task);
+  } catch (e) {
+    res.status(404).json({ error: "Task not found" });
+  }
+});
 
 /**
  * POST /api/tasks
  * Creates a task with the supplied detail and returns created object
  * fails request if not all details supplied
  */
-router.post("/", async (req, res) => {});
+router.post("/", async (req, res) => {
+  const taskInfo = req.body;
+
+  if (!taskInfo) {
+    res.status(400).json({ error: "You must provide data to create a task" });
+    return;
+  }
+  if (!taskInfo.title) {
+    res.status(400).json({ error: "You must provide a title" });
+    return;
+  }
+  if (!taskInfo.description) {
+    res.status(400).json({ error: "You must provide a description" });
+    return;
+  }
+  if (!taskInfo.hoursEtimated) {
+    res.status(400).json({ error: "You must provide estimated hours" });
+    return;
+  }
+
+  try {
+    const newTask = await tasksData.createTask(
+      taskInfo.title,
+      taskInfo.description,
+      taskInfo.hoursEtimated
+    );
+    res.status(200).json(newTask);
+  } catch (e) {
+    res.sendStatus(500).json({ error: e });
+  }
+});
 
 /**
  * Updates the task with the supplied ID and returns the new task object
