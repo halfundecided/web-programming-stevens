@@ -68,7 +68,31 @@ router.post("/", async (req, res) => {
  * task: PUT calls must provide all details of the new state of the object
  * Note: you cannot manipulate comments in this route
  */
-router.put("/:id", async (req, res) => {});
+router.put("/:id", async (req, res) => {
+  let taskInfo = req.body;
+  if (!taskInfo) {
+    res.status(400).json({ error: "You must provide data to update a task" });
+    return;
+  }
+
+  //change updatedTask to taskInfo
+  if(!taksTask.title || !updatedTask.description || !updatedTask.hoursEtimated || !updatedTask.completed) {
+      res.status(400).json({ error: "You must provide all details of the new state" });
+      return;
+  }
+
+  try {
+     await tasksData.getTaskById(req.params.id);
+  } catch (e) {
+      res.status(404).json({ error: "Task not found" });
+      return;
+  }
+
+  try {
+      
+  }
+
+});
 
 /**
  * Updates the task with the supplied ID and returns the new task object
