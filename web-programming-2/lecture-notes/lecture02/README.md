@@ -212,3 +212,82 @@ p {
   }
 }
 ```
+
+### For and each
+
+```css
+@for $i from 1 through 3 {
+  .item-#{i} {
+    width: 2em * $i;
+  }
+}
+```
+
+```css
+@each $animal in puma, sea-slug, egret, salamander {
+  .#{$animal}-icon {
+    background-image: url("/images/#{$animal}.png");
+  }
+}
+```
+
+### Minxins
+
+Mixins are styles that can have parameters. We include the mixins, rather than extend them.
+
+```css
+@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+.shadows {
+  @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+```
+
+### Functions
+
+We can write our own functions in SASS, which allow us to very easily create our own libraries full of rules and utility methods that we can use across an entire project.
+
+```css
+$grid-width: 40px;
+$gutter-width: 10px;
+
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+
+#sidebar {
+  width: grid-width(5);
+}
+```
+
+### Extending
+
+We can extend content so that we can reduce redundancy in our HTML and no longer have to remember combinations of classes to define
+
+```css
+.error {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+.seriousError {
+  @extend .error;
+  border-width: 3px;
+}
+```
+
+compiled to:
+
+```css
+.error,
+.seriousError {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+.seriousError {
+  border-width: 3px;
+}
+```
