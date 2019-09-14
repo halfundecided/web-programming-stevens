@@ -163,3 +163,52 @@ body.firefox a {
   font-weight: normal;
 }
 ```
+
+### Imports
+
+You can have SASS import different files by using the `@import 'filename.scss` syntax. This is useful for including other related data.
+
+### Nested Media Queries
+
+We can nest media queries inside of rulesets and have the media query bubble up and wrap the updated ruleset.
+
+```css
+.sidebar {
+  width: 300px;
+  @media screen and (orientation: landscape) {
+    width: 500px;
+  }
+}
+```
+
+is compiled to:
+
+```css
+.sidebar {
+  width: 300px;
+}
+@media screen and (orientation: landscape) {
+  .sidebar {
+    width: 500px;
+  }
+}
+```
+
+### General control
+
+We can use many common control types with SASS, such as `if` and `for`
+
+```css
+$type: monster;
+p {
+  @if $type == ocean {
+    color: blue;
+  } @else if $type == matador {
+    color: red;
+  } @else if $type == monster {
+    color: green;
+  } @else {
+    color: black;
+  }
+}
+```
