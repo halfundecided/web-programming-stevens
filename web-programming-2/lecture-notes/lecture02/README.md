@@ -291,3 +291,83 @@ compiled to:
   border-width: 3px;
 }
 ```
+
+## Building Bootstrap 4
+
+### Bootstrap 4 Changes
+
+Bootstrap 4 is a major rewrite of Bootstrap that is currently in beta.  
+The major differences are:
+
+- Dropped IE8 support; IE9+
+- Changed from LESS to SASS
+- Now using `rem` as the primary unit
+- New, even tinier grid added
+- Flexbox grid added
+- Panels, thumbnails, and wells are now cards
+- General improvements
+
+### What's the compromise?
+
+We can compromise by still using Bootstrap but customizing and building our own version of Bootstrap.  
+There are 2 general strategies:
+
+- Download Bootstrap's compiled version and modify it accordingly.
+- Download Bootstrap's source code, change variables, and build it yourself.  
+  By downloading Bootstrap's source, we can create our own copy of its style
+- By keeping a reference to source repository, you can pull in updates constantly from the official Bootstrap repository.
+- You can modify all variables and cleanly modify the entire display with minimal tweaks to the actual source logic.
+
+### How do we compile Bootstrap?
+
+Bootstrap 4 is written in SASS, so we can just customize it by updating the SASS source files. We can easily create Gulp setup to go through the process of building it ourselves. You can install the bootstrap through NPM, and reference the SASS files in your gulp script.  
+`npm install bootstrap`
+
+### Selectively including Components
+
+One of the easiest optimizations to ever make is removing things you don't need. Bootstrap's primary file `bootstrap.scss` is actually just a series of includes that allow you to selectively enable and disable components from being included.  
+If you know that your page only nees a certain subset of features, you can simply remove thoes includes from this file and enjoy the benefits of:
+
+- Smaller downloads
+- Shorter build times
+- Simpler code base with fewer things to worry about
+
+### Tweaking Bootstrap: Variables
+
+The first thing to look for when tweaking Bootstrap is the `_variable.scss` file.  
+This file contains a series of variables that can be updated that each are propagated throughout the entire bootstrap source. You will notice that there are many branding-related concepts. By tweaking a single variable, we can change the look and feel of many components to all be matching
+
+### Tweaking Bootstrap: Modifying the content
+
+Bootstrap runs off a series of includes, meaning that it's designed in an incredibly modular fashion.  
+Each included file builds out one single component, meaning that you can modify components and not affect other styles.  
+We can also follow their design pattern and leverage their common utility classes to create new components of out own. We can write out components using the Bootstrap variables and mixins to quickly create highly consistent components.
+
+## Gulp
+
+### What is Gulp?
+
+- Gulp is, simply put, a task runner.
+  - You think of tasks. It runs these tasks.
+- Gulp is a node module that is centralized on the concept of using streams and manipulating their data
+- Gulp is a command line tool, that is installed through a global node module known as `Gulp`.
+
+### What will our first task do?
+
+Our first task will take a bunch of SASS code and turn it into a single CSS file.
+
+- Grab all scss files we want to compile
+- Initialize a sourcemap
+- Compile the SASS into CSS
+- Add prefixes to increase browser support
+- Concatenate all the files
+- Minify the result
+- Save the result to file
+
+### What modules?
+
+- `gulp-sass`: Compiles SASS into CSS using libsass
+- `gulp-sourcemaps`: Creates a map from old code to new code
+- `gulp-concat`: Concatenates files.
+- `gulp-clean-css`: Minifies our CSS
+- `gulp-autoprefixer`: Adds useful vendor prefixes for browser support
