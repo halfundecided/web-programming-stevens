@@ -4,7 +4,12 @@ const { ObjectId } = require("mongodb");
 
 const getAll = async (skip, take) => {
   const taskCollection = await tasks();
-  const allTasks = await taskCollection.find({}).toArray();
+  const allTasks = await taskCollection
+    .find({})
+    .project({ _id: 0 })
+    .skip(skip)
+    .limit(take)
+    .toArray();
   return allTasks;
 };
 
@@ -72,10 +77,11 @@ const updateTask = async (taskId, updatedTask) => {
     !updatedTask.title ||
     !updatedTask.description ||
     !updatedTask.hoursEstimated ||
-    !updatedTask.completed
+    typeof updatedTask.completed === "undefined"
   )
-    throw `You should provide all details`;
+    throw `You should provide all details (completed as well)`;
 
+  const originalTask = await module.exports.getTaskById(taskId);
   const taskCollection = await tasks();
   const parsedId = ObjectId.createFromHexString(taskId);
 
@@ -83,18 +89,19 @@ const updateTask = async (taskId, updatedTask) => {
     title: updatedTask.title,
     description: updatedTask.description,
     hoursEstimated: updatedTask.hoursEstimated,
-    completed: updatedTask.completed
-    // comments??? probably not
+    completed: updatedTask.completed,
+    comments: originalTask.comments
   };
 
   const updatedInfo = await taskCollection.updateOne(
     { _id: parsedId },
     { $set: updatedTaskData }
   );
+
   if (updatedInfo.modifiedCount === 0)
     throw "could not update task successfully";
 
-  return await this.getTaskById(taskId);
+  return await module.exports.getTaskById(taskId);
 };
 
 /**
@@ -129,9 +136,9 @@ const updateTaskForPatch = async (taskId, updatedTask) => {
   );
 
   if (updatedInfo.modifiedCount === 0)
-    throw `could not update task successfully`;
+    throw `could not update(patch) task successfully`;
 
-  return await this.getTaskById(taskId);
+  return await module.exports.getTaskById(taskId);
 };
 
 /**
@@ -158,6 +165,8 @@ const addComment = async (taskId, name, comment) => {
     comment: comment
   };
 
+  newComment._id = new ObjectId();
+
   const insertedComment = await taskCollection.updateOne(
     { _id: parsedId },
     { $addToSet: { comments: newComment } }
@@ -166,8 +175,7 @@ const addComment = async (taskId, name, comment) => {
   if (insertedComment.modifiedCount === 0)
     throw `could not add a comment successfully`;
 
-  // **** return task?? comment??
-  return 0;
+  return await module.exports.getTaskById(taskId);
 };
 
 const removeComment = async (taskId, commentId) => {
@@ -181,12 +189,14 @@ const removeComment = async (taskId, commentId) => {
   const parsedCommentId = ObjectId.createFromHexString(commentId);
 
   const deletionComment = await taskCollection.findOneAndUpdate(
-    { id: parsedTaskId },
+    { _id: parsedTaskId },
     { $pull: { comments: { _id: parsedCommentId } } }
   );
 
-  // *** return anything?
-  return 0;
+  if (deletionComment.deletedCount === 0) {
+    throw "Could not remove comment.";
+  }
+  return deletionComment;
 };
 
 module.exports = {
