@@ -1,4 +1,11 @@
-/* Return the first element of an array */
+/**
+ * Returns the first element of an array
+ * Check:
+ *      that the array exists
+ *      the array is of the proper type
+ *      the array is not empty
+ * @param {arr} array
+ */
 function head(array) {
   // Check if the array exists
   if (typeof array === "undefined") {
@@ -15,7 +22,14 @@ function head(array) {
   return array[0];
 }
 
-/* Return the last element of an array */
+/**
+ * Returns the last element of an array
+ * Check:
+ *      that the array exists
+ *      the array is of the proper type
+ *      the array is not empty
+ * @param {arr} array
+ */
 function last(array) {
   // Check if the array exists
   if (typeof array === "undefined") {
@@ -32,7 +46,16 @@ function last(array) {
   return array[array.length - 1];
 }
 
-/* Removes the element at the specified index of the array, and returns the new array */
+/**
+ * Removes the element at the specified index of the array, and returns the new array
+ * Check:
+ *      that the array exists
+ *      the array is of the proper type
+ *      the array is not empty
+ *      that the index is within bounds
+ * @param {arr} array
+ * @param {number} index
+ */
 function remove(array, index) {
   // Check if the array exists
   if (typeof array === "undefined" || typeof index === "undefined") {
@@ -54,7 +77,14 @@ function remove(array, index) {
   return array;
 }
 
-/* Creates a new numbered array string at 0 increasing by one up to, but not including the `end` argument */
+/**
+ * Creates a new numbered array starting at 0 increasing by one up to, but not
+ * including the end argument. The value argument is optional, but when specified
+ * each element will be set to that value
+ * You must check that the end number exists and is of proper type, and is a positive integer greater than 0
+ * @param {number} end
+ * @param {any} value
+ */
 function range(end, value) {
   // Check if end exists
   if (typeof end === "undefined") {
@@ -67,20 +97,28 @@ function range(end, value) {
 
   let arr = [];
   // If there is no value entered
-  if(typeof value === "undefined") {
-    for(let i = 0; i < end; i++) {
+  if (typeof value === "undefined") {
+    for (let i = 0; i < end; i++) {
       arr.push(i);
     }
     return arr;
-  } else { // If there is a value
-    for(let i = 0; i < end; i++) {
+  } else {
+    // If there is a value
+    for (let i = 0; i < end; i++) {
       arr.push(value);
     }
     return arr;
   }
 }
 
-/* Return on object with the count of each unique element in the array */
+/**
+ * Return an object with the count of each unique element in the array
+ * This function allows empty arrays
+ * Check:
+ *      that the array exists
+ *      the array is of the proper type
+ * @param {arr} array
+ */
 function countElements(array) {
   const countElementHelp = (arr, acc, i) => {
     // Check if the array exists
@@ -104,7 +142,17 @@ function countElements(array) {
   return countElementHelp(array, {}, 0);
 }
 
-/* Given two arrays chech if they are equal in terms of size and elements and return a boolean */
+/**
+ * Given two arrays, check if they are equal in terms of size and elements and return a boolean.
+ * Order of the items in the elements matters when comparing equality
+ * This function allows empty arrays
+ * Check:
+ *      that the arrays exist
+ *      each array is of the proper type
+ *
+ * @param {arr} arrayOne
+ * @param {arr} arrayTwo
+ */
 function isEqual(arrayOne, arrayTwo) {
   // Check if the arrays exist
   if (arrayOne === undefined || arrayTwo === undefined) {
@@ -114,14 +162,13 @@ function isEqual(arrayOne, arrayTwo) {
   if (arrayOne.constructor !== Array || arrayTwo.constructor !== Array) {
     throw `One of arrays (or both) is not an array`;
   }
-  if(arrayOne.length != arrayTwo.length) {
-      return false;
+  if (arrayOne.length != arrayTwo.length) {
+    return false;
   } else {
-      for(let i = 0; i < arrayOne.length ; i++) {
-          if(arrayOne[i] !== arrayTwo[i])
-            return false;
-      }
-      return true;
+    for (let i = 0; i < arrayOne.length; i++) {
+      if (arrayOne[i] !== arrayTwo[i]) return false;
+    }
+    return true;
   }
 }
 
@@ -131,5 +178,5 @@ module.exports = {
   remove,
   range,
   countElements,
-  isEqual,
-}
+  isEqual
+};

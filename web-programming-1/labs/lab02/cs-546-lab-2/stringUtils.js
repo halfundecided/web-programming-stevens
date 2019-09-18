@@ -1,6 +1,12 @@
 const arrayUtils = require("./arrayUtils.js");
 
-/* Given a string, capitalize the first letter and lowercase the remaining characters */
+/**
+ * Given a string, capitalize the first letter and lowercase the remaining characters
+ * Check:
+ *      that the string exist
+ *      the string is of the proper type
+ * @param {string} string
+ */
 function capitalize(string) {
   // Check if the string exist
   if (typeof string === "undefined") {
@@ -13,7 +19,15 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-/* Repeat the string `num` amount of times */
+/**
+ * Given string and num, repeat the string num amount of times
+ * Check:
+ *      that the string exist
+ *      the string is of the proper type
+ *      the number provided exists and is a positive number
+ * @param {string} string
+ * @param {number} num
+ */
 function repeat(string, num) {
   // Check if the string exist
   if (typeof string === "undefined") {
@@ -35,23 +49,29 @@ function repeat(string, num) {
   return string + repeat(string, num - 1);
 }
 
-/* Return an object that has the mapping of a character and the amount of times it appears in a string */
+/**
+ * Return an object that has the mapping of a character and the mount of times it appears in a string
+ * Check:
+ *      that the string exist
+ *      the string is of the proper type
+ * @param {string} string
+ */
 function countChars(string) {
-   // Check if the string exist
+  // Check if the string exist
   if (typeof string === "undefined") {
     throw "provided variable is undefined";
-  } 
+  }
   // Check if the string is of the proper type
   if (string.constructor !== String) {
     throw `${string || "provided variable"} is not a string`;
   }
   // Convert string to array and use countElements()
-  const arr = string.split('');
+  const arr = string.split("");
   return arrayUtils.countElements(arr);
 }
 
 module.exports = {
   capitalize,
   repeat,
-  countChars,
-}
+  countChars
+};

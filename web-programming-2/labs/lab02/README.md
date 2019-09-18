@@ -34,6 +34,6 @@ All other routes will load a 404 page.
 
 ### Notes:
 
-1. Remember to submit your package.json file but not your node_modules folder.
+1. Remember to submit your package.json file but not your nde_modules folder.
 2. Remember to run HTML Validator and tota11y tests!
 3. Remember to have fun with the content.
