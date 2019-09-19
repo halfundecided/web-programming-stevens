@@ -1,5 +1,5 @@
 const axios = require("axios");
- 
+
 /* Returns the person at a specified index within the people.json array */
 const getPersonById = async index => {
   const people = await axios.get(
@@ -14,7 +14,8 @@ const getPersonById = async index => {
     throw "index is not within bounds";
   }
 
-  let firstName = "", lastName = "";
+  let firstName = "",
+    lastName = "";
 
   for (let i = 0; i < people.data.length; i++) {
     if (people.data[i].id === index) {
@@ -22,7 +23,7 @@ const getPersonById = async index => {
       lastName = people.data[i].lastName;
     }
   }
-  return `${firstName} ${lastName}`
+  return `${firstName} ${lastName}`;
 };
 
 /* Get the sorted lexographic of all the people by their last name, then return the person's full name at the index specified by the argument index */
@@ -107,13 +108,13 @@ const firstNameMetrics = async () => {
     return prev.length <= next.length ? prev : next;
   });
 
-  return metrix = {
-      totalLetter: letterSum,
-      totalVowels: totalVowels,
-      totalConsonants: totalConsonants,
-      longestName: longestName,
-      shortestName: shortestName
-  };
+  return (metrix = {
+    totalLetter: letterSum,
+    totalVowels: totalVowels,
+    totalConsonants: totalConsonants,
+    longestName: longestName,
+    shortestName: shortestName
+  });
 };
 
 module.exports = {
