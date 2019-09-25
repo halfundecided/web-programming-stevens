@@ -37,7 +37,6 @@ const main = async () => {
   }
 
   /* whereDoTheyWork */
-
   try {
     const work_where = await work.whereDoTheyWork("Demetra", "Durrand");
     console.log(work_where);
