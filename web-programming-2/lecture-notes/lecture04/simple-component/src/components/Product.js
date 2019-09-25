@@ -13,7 +13,7 @@ class Product extends Component {
         <img src={process.env.PUBLIC_URL + this.props.product.imgName} />
         <p>$ {this.props.product.productPrice}</p>
         <br />
-        <button Onclick={this.buttonClick}>
+        <button onClick={this.buttonClick}>
           Buy the {this.props.product.productName}
         </button>
         <br />

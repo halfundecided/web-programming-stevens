@@ -1,0 +1,24 @@
+@import "variables";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+/* Heading */
+h1 {
+  font-family: $mj-heading-font;
+  text-align: center;
+  margin-top: $mj-heading-margin;
+  margin-bottom: $mj-heading-margin;
+}
+
+.card {
+  margin-top: $mj-card-margin;
+}
+
+.card-img-top {
+  margin-top: $mj-card-margin / 2;
+  border-radius: $mj-image-radius;
+}
+
+.card-title,
+.card-text {
+  font-family: $mj-card-font;
+}

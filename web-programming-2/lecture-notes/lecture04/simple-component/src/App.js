@@ -19,7 +19,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.productsClicked}
+        {this.state.productsClicked.map(item => {(
+          <div>
+            {item}
+            <br />
+          </div>
+        ))}
         <Product
           product={{
             productName: "Pixel 4",
