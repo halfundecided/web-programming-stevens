@@ -7025,13 +7025,37 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6; } }
 
+body {
+  background-color: #f5f6fa; }
+
+.container {
+  margin-bottom: 3rem; }
+
 /* Heading */
 h1 {
   font-family: "Mansalva", cursive;
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 5.5rem;
   margin-bottom: 4rem; }
 
+/* Nav bar */
+.nav {
+  text-align: center;
+  background-color: #2f3542;
+  margin-top: 3rem;
+  border-radius: 0.3rem; }
+
+.nav-link {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #dfe4ea; }
+
+.nav-link:hover {
+  color: #a4b0be; }
+
+/* Cards */
 .card {
   margin-top: 3rem; }
 
@@ -7042,3 +7066,6 @@ h1 {
 .card-title,
 .card-text {
   font-family: "Open Sans Condensed", sans-serif; }
+
+.card-footer {
+  margin-bottom: 1.5rem; }
