@@ -52,8 +52,47 @@ class ShowList extends Component {
 
   render() {
     let body = null;
-    let li = bull;
+    let li = null;
     if (this.state.searchTerm) {
+      li =
+        this.state.searchData &&
+        this.state.searchData.map(shows => {
+          let show = shows.show;
+
+          return (
+            <li key={show.id}>
+              <Link to={`/shows/${show.id}`}>{show.name}</Link>
+            </li>
+          );
+        });
+    } else {
+      li =
+        this.state.data &&
+        this.state.data.map(show => (
+          <li key={show.id}>
+            <Link to={`/shows/${show.id}`}>{show.name}</Link>
+          </li>
+        ));
     }
+    body = (
+      <div>
+        <form method="POST" name="formName" onSubmit={this.onSubmit}>
+          <label>
+            {" "}
+            Search Term:
+            <input
+              type="text"
+              name="searchTerm"
+              onChange={this.handleChange}
+            ></input>
+          </label>
+        </form>
+        <ul className="list-unstyled">{li}</ul>
+      </div>
+    );
+
+    return body;
   }
 }
+
+export default ShowList;

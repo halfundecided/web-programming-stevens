@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import ShowList from "./ShowList";
-import Show from "./Show";
+import Show from "./Shows";
 
 class ShowsContainer extends Component {
   render() {
@@ -15,3 +15,5 @@ class ShowsContainer extends Component {
     );
   }
 }
+
+export default ShowsContainer;
