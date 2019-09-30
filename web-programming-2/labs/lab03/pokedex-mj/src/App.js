@@ -1,13 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import HomeIcon from "@material-ui/icons/Home";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import GrainIcon from "@material-ui/icons/Grain";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PokemonContainer from "./components/PokemonContainer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,7 +61,7 @@ function App() {
         <div className="App-body">
           <p>Pokemon explanation...</p>
           <Switch>
-            {/* <Route path="/pokemon/" component={PokemonContainer} /> */}
+            <Route path="/pokemon/" component={PokemonContainer} />
             {/* <Route path="/berries/" component={BerriesContainer} /> */}
             {/* <Route path="/machines" component={MachinesContainer} /> */}
           </Switch>
