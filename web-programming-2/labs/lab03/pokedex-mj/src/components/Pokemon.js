@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import noImage from "../images/noImage.png";
 
 class Pokemon extends Component {
   constructor(props) {
@@ -41,42 +51,108 @@ class Pokemon extends Component {
     if (this.state.loading) {
       body = (
         <div>
-          <h1>Pokemon</h1>
           <br />
-          Loading...
+          <br />
+          <CircularProgress style={{ color: "#ffcccc" }} />
         </div>
       );
     } else if (this.state.error) {
       return <Redirect to="/404" />;
     } else {
       let img = null;
-      // imageeee
+      if (this.state.data.sprites.front_default) {
+        img = <img alt="pokemon" src={this.state.data.sprites.front_default} />;
+      } else {
+        img = <img alt="pokemon" src={noImage} />;
+      }
 
       body = (
         <div>
-          <p>{this.state.data && this.state.data.name}</p>
-          <p>Base Experience: {this.state.data.base_experience}</p>
-          <p>Height: {this.state.data.height}</p>
-          <p>Weight: {this.state.data.weight}</p>
-          <p>Abilities:</p>
-          <ul>
-            {this.state.data.abilities.map(element => {
-              return <ul key={element.ability.name}>{element.ability.name}</ul>;
-            })}
-          </ul>
-          <p>Forms</p>
-          <ul>
-            {this.state.data.forms.map(element => {
-              return <ul key={element.name}>{element.name}</ul>;
-            })}
-          </ul>
-          <p>Moves</p>
-          <ul>
-            {this.state.data.moves.map(element => {
-              return <ul key={element.move.name}>{element.move.name}</ul>;
-            })}
-          </ul>
-          <p>Types</p>
+          <Card
+            style={{
+              minWidth: 275,
+              backgroundColor: "#f3f1eb",
+              padding: "3rem",
+              margin: "5rem"
+            }}
+          >
+            <CardContent>
+              <Typography
+                style={{ fontSize: 20 }}
+                color="textSecondary"
+                gutterBottom
+              >
+                {this.state.data && this.state.data.name}
+              </Typography>
+              {img}
+              <Table
+                style={{
+                  padding: "5rem"
+                }}
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Section</TableCell>
+                    <TableCell align="left">Values</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Name
+                    </TableCell>
+                    <TableCell align="left">
+                      {this.state.data && this.state.data.name}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Base Experience
+                    </TableCell>
+                    <TableCell align="left">
+                      {this.state.data.base_experience}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Height
+                    </TableCell>
+                    <TableCell align="left">{this.state.data.height}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Weight
+                    </TableCell>
+                    <TableCell align="left">{this.state.data.weight}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Abilities
+                    </TableCell>
+                    <TableCell align="left">
+                      {this.state.data.abilities.map(element => {
+                        return (
+                          <ul key={element.ability.name}>
+                            {element.ability.name}
+                          </ul>
+                        );
+                      })}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Forms
+                    </TableCell>
+                    <TableCell align="left">
+                      {this.state.data.forms.map(element => {
+                        return <ul key={element.name}>{element.name}</ul>;
+                      })}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </div>
       );
     }

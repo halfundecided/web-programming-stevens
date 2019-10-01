@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
-import Pagination from "react-bootstrap/Pagination";
-
+import { Pagination, PaginationItem } from "reactstrap";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
@@ -20,7 +19,10 @@ const listStyle = {
 
 const linkStyle = {
   textDecoration: "none",
-  color: "white"
+  color: "#ffcccc",
+  border: "1px solid #ffcccc",
+  padding: "0.7rem",
+  borderRadius: "4px"
 };
 class PokemonList extends Component {
   constructor(props) {
@@ -106,18 +108,23 @@ class PokemonList extends Component {
         </li>
       ));
     let p = (
-      <Pagination>
+      <Pagination aria-label="Page navigation example">
         {this.state.prev ? (
-          <Pagination.Prev onClick={this.handlePrev}></Pagination.Prev>
+          <PaginationItem previous onClick={this.handlePrevious}>
+            Previous
+          </PaginationItem>
         ) : null}
         {this.state.next ? (
-          <Pagination.Next onClick={this.handleNext}></Pagination.Next>
+          <PaginationItem next onClick={this.handleNext}>
+            Next
+          </PaginationItem>
         ) : null}
       </Pagination>
     );
     body = (
       <div>
         <Paper style={paperStyle}>
+          {p}
           <div>
             <ul>
               <Typography variant="h6" gutterBottom>
@@ -125,7 +132,6 @@ class PokemonList extends Component {
               </Typography>
             </ul>
           </div>
-          {p}
         </Paper>
       </div>
     );
