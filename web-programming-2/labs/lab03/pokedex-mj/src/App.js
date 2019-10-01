@@ -23,13 +23,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const appStyle = {
+  textAlign: "center",
+  margin: "10rem",
+  backgroundColor: "rgb(51, 51, 51)",
+  borderRadius: "1px",
+  height: "90rem"
+};
+
+const headerStyle = {
+  display: "inline-block",
+  marginTop: "2rem"
+};
+
+const paperStyle = {
+  border: "3px solid #a4b0be"
+};
+
 function App() {
   const classes = useStyles();
   return (
     <Router>
-      <div className="App">
-        <header className="App-header">
-          <Paper elevation={0} className={classes.root}>
+      <div className="App" style={appStyle}>
+        <header className="App-header" style={headerStyle}>
+          <Paper elevation={0} className={classes.root} style={paperStyle}>
             <Breadcrumbs aria-label="breadcrumb">
               <Link
                 color="inherit"

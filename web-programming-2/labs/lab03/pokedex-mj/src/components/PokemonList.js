@@ -3,6 +3,25 @@ import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import Pagination from "react-bootstrap/Pagination";
 
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
+const paperStyle = {
+  margin: "4rem",
+  textAlign: "center",
+  backgroundColor: "rgb(66,66,66)",
+  padding: "1rem"
+};
+
+const listStyle = {
+  listStyleType: "none",
+  marginTop: "1.5rem"
+};
+
+const linkStyle = {
+  textDecoration: "none",
+  color: "white"
+};
 class PokemonList extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +29,6 @@ class PokemonList extends Component {
       data: undefined,
       loading: false,
       page: 0,
-      total: 0,
       lastPage: 0,
       prev: null,
       next: `https://pokeapi.co/api/v2/pokemon/`,
@@ -31,7 +49,6 @@ class PokemonList extends Component {
       );
       await this.setState({
         data: response.data.results,
-        total: response.data.count,
         prev: response.data.previous,
         next: response.data.next,
         lastPage: Math.floor(response.data.count / 20)
@@ -41,7 +58,7 @@ class PokemonList extends Component {
         Number(this.state.page) < 0 ||
         Number(this.state.page) > Number(this.state.lastPage)
       ) {
-        throw `out of boundary page`;
+        throw `page out of boundary`;
       }
     } catch (e) {
       this.setState({ error: true });
@@ -69,36 +86,47 @@ class PokemonList extends Component {
   }
 
   componentDidMount() {
-    this.getPokemons();
+    let p = this.props.match.params.page;
+    this.getPokemons(p);
   }
 
   render() {
-    // if (this.state.error) {
-    //   return <Redirect to="/404" />;
-    // }
+    if (this.state.error) {
+      return <Redirect to="/404" />;
+    }
     let body = null;
     let li = null;
     li =
       this.state.data &&
       this.state.data.map(pokemon => (
-        <li key={pokemon.id}>
-          <Link to={`/pokemon/${pokemon.url.split("/"[6])}`}>
+        <li key={pokemon.id} style={listStyle}>
+          <Link style={linkStyle} to={`/pokemon/${pokemon.url.split("/")[6]}`}>
             {pokemon.name}
           </Link>
         </li>
       ));
     let p = (
       <Pagination>
-        {this.state.prev ? <Pagination.Prev onClick={this.handlePrev} /> : null}
-        {this.state.next ? <Pagination.Next onClick={this.handleNext} /> : null}
+        {this.state.prev ? (
+          <Pagination.Prev onClick={this.handlePrev}></Pagination.Prev>
+        ) : null}
+        {this.state.next ? (
+          <Pagination.Next onClick={this.handleNext}></Pagination.Next>
+        ) : null}
       </Pagination>
     );
     body = (
       <div>
-        <div>
-          <ul>{li}</ul>
-        </div>
-        {p}
+        <Paper style={paperStyle}>
+          <div>
+            <ul>
+              <Typography variant="h6" gutterBottom>
+                {li}
+              </Typography>
+            </ul>
+          </div>
+          {p}
+        </Paper>
       </div>
     );
     return body;

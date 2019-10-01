@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class Pokemon extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: undefined,
-      loading: false
+      loading: false,
+      error: false
     };
-  }
-
-  componentWillMount() {
-    this.getPokemon();
   }
 
   async getPokemon() {
@@ -34,10 +32,11 @@ class Pokemon extends Component {
     }
   }
 
+  componentWillMount() {
+    this.getPokemon();
+  }
+
   render() {
-    // if (this.state.error) {
-    //   return <Redirect to="/404" />;
-    // }
     let body = null;
     if (this.state.loading) {
       body = (
@@ -48,13 +47,38 @@ class Pokemon extends Component {
         </div>
       );
     } else if (this.state.error) {
+      return <Redirect to="/404" />;
+    } else {
+      let img = null;
+      // imageeee
+
       body = (
         <div>
-          <h1>{this.state.error}</h1>
+          <p>{this.state.data && this.state.data.name}</p>
+          <p>Base Experience: {this.state.data.base_experience}</p>
+          <p>Height: {this.state.data.height}</p>
+          <p>Weight: {this.state.data.weight}</p>
+          <p>Abilities:</p>
+          <ul>
+            {this.state.data.abilities.map(element => {
+              return <ul key={element.ability.name}>{element.ability.name}</ul>;
+            })}
+          </ul>
+          <p>Forms</p>
+          <ul>
+            {this.state.data.forms.map(element => {
+              return <ul key={element.name}>{element.name}</ul>;
+            })}
+          </ul>
+          <p>Moves</p>
+          <ul>
+            {this.state.data.moves.map(element => {
+              return <ul key={element.move.name}>{element.move.name}</ul>;
+            })}
+          </ul>
+          <p>Types</p>
         </div>
       );
-    } else {
-      // rendering info
     }
     return body;
   }
