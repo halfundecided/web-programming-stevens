@@ -10,7 +10,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import noImage from "../images/noImage.png";
 
 class Berries extends Component {
   constructor(props) {
@@ -48,7 +47,9 @@ class Berries extends Component {
 
   render() {
     let body = null;
-    if (this.state.loading) {
+    if (this.state.error) {
+      return <Redirect to="/404" />;
+    } else if (this.state.loading) {
       body = (
         <div>
           <br />
@@ -59,13 +60,6 @@ class Berries extends Component {
     } else if (this.state.error) {
       return <Redirect to="/404" />;
     } else {
-      //   let img = null;
-      //   if (this.state.data.sprites.front_default) {
-      //     img = <img alt="berries" src={this.state.data.sprites.front_default} />;
-      //   } else {
-      //     img = <img alt="berries" src={noImage} />;
-      //   }
-
       body = (
         <div>
           <Card
@@ -101,9 +95,7 @@ class Berries extends Component {
                     <TableCell component="th" scope="row">
                       Name
                     </TableCell>
-                    <TableCell align="left">
-                      {this.state.data && this.state.data.name}
-                    </TableCell>
+                    <TableCell align="left">{this.state.data.name}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell component="th" scope="row">
@@ -139,14 +131,6 @@ class Berries extends Component {
                           </ul>
                         );
                       })}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      Natural Gift Type
-                    </TableCell>
-                    <TableCell align="left">
-                      {this.state.data.natural_gift_type}
                     </TableCell>
                   </TableRow>
                 </TableBody>

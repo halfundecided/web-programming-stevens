@@ -20,10 +20,26 @@ const listStyle = {
 const linkStyle = {
   textDecoration: "none",
   color: "#ffcccc",
-  border: "1px solid #ffcccc",
+  borderBottom: "1px solid #ffcccc",
   padding: "0.7rem",
-  borderRadius: "4px"
+  fontSize: "15px"
 };
+
+const pageStyle = {
+  display: "flex",
+  justifyContent: "space-around",
+  paddingLeft: "2rem",
+  paddingRight: "2rem"
+};
+
+const buttonStyle = {
+  textDecoration: "none",
+  listStyle: "none",
+  color: "#d1ccc0",
+  cursor: "all-scroll",
+  fontSize: "20px"
+};
+
 class PokemonList extends Component {
   constructor(props) {
     super(props);
@@ -60,7 +76,8 @@ class PokemonList extends Component {
         Number(this.state.page) < 0 ||
         Number(this.state.page) > Number(this.state.lastPage)
       ) {
-        throw `page out of boundary`;
+        this.setState({ error: true });
+        console.log("page out of boundary");
       }
     } catch (e) {
       this.setState({ error: true });
@@ -108,14 +125,18 @@ class PokemonList extends Component {
         </li>
       ));
     let p = (
-      <Pagination aria-label="Page navigation example">
+      <Pagination style={pageStyle}>
         {this.state.prev ? (
-          <PaginationItem previous onClick={this.handlePrevious}>
+          <PaginationItem
+            style={buttonStyle}
+            previous
+            onClick={this.handlePrevious}
+          >
             Previous
           </PaginationItem>
         ) : null}
         {this.state.next ? (
-          <PaginationItem next onClick={this.handleNext}>
+          <PaginationItem style={buttonStyle} next onClick={this.handleNext}>
             Next
           </PaginationItem>
         ) : null}
@@ -126,11 +147,7 @@ class PokemonList extends Component {
         <Paper style={paperStyle}>
           {p}
           <div>
-            <ul>
-              <Typography variant="h6" gutterBottom>
-                {li}
-              </Typography>
-            </ul>
+            <ul>{li}</ul>
           </div>
         </Paper>
       </div>

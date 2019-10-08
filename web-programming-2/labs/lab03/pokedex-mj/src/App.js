@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PokemonContainer from "./components/PokemonContainer";
 import BerriesContainer from "./components/BerriesContainer";
 import MachinesContainer from "./components/MachinesContainer";
+import ErrorPage from "./components/Error";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 
@@ -31,7 +32,8 @@ const useStyles = makeStyles(theme => ({
 const appStyle = {
   textAlign: "center",
   margin: "10rem",
-  backgroundColor: "rgb(51, 51, 51)",
+  // backgroundColor: "rgb(51, 51, 51)",
+  backgroundColor: "#595751",
   borderRadius: "1px",
   height: "110rem"
 };
@@ -42,7 +44,7 @@ const headerStyle = {
 };
 
 const paperStyle = {
-  border: "2.5px solid #ffb8b8"
+  border: "2.5px solid #d1ccc0"
 };
 
 function App() {
@@ -51,11 +53,19 @@ function App() {
     <Router>
       <div className="App" style={appStyle}>
         <Typography
-          variant="h3"
+          variant="h1"
           style={{ color: "#d1ccc0", paddingTop: "3rem" }}
         >
-          Welcome!✋🏻 This is the Pokédex!🔬📁
+          Welcome!✋🏻
         </Typography>
+        <Link color="inherit" href="/" target="_self">
+          <Typography
+            variant="h2"
+            style={{ color: "#d1ccc0", paddingTop: "3rem" }}
+          >
+            This is the Pokédex!🔬📁
+          </Typography>
+        </Link>
         <header className="App-header" style={headerStyle}>
           <br />
           <Paper elevation={0} className={classes.root} style={paperStyle}>
@@ -71,7 +81,7 @@ function App() {
               </Link>
               <Link
                 color="inherit"
-                href="berries/page/0"
+                href="/berries/page/0"
                 target="_self"
                 className={classes.link}
               >
@@ -80,7 +90,7 @@ function App() {
               </Link>
               <Link
                 color="inherit"
-                href="machines/page/0"
+                href="/machines/page/0"
                 target="_self"
                 className={classes.link}
               >
@@ -92,11 +102,11 @@ function App() {
         </header>
         <div className="App-body">
           <br />
-          <Typography variant="h6" style={{ color: "#d1ccc0" }}>
+          <div style={{ color: "#d1ccc0" }}>
             Sorry,
             <br />
             {"I honestly do not know about Pokemon."}
-          </Typography>
+          </div>
           <br />
           <Divider
             style={{
@@ -104,9 +114,10 @@ function App() {
             }}
           />
           <Switch>
-            <Route path="/pokemon/" exact component={PokemonContainer} />
-            <Route path="/berries/" exact component={BerriesContainer} />
-            <Route path="/machines/" exact component={MachinesContainer} />
+            <Route path="/pokemon" component={PokemonContainer} />
+            <Route path="/berries" component={BerriesContainer} />
+            <Route path="/machines" component={MachinesContainer} />
+            <Route path="/404" component={ErrorPage} />
           </Switch>
         </div>
       </div>

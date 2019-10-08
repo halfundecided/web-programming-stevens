@@ -48,7 +48,9 @@ class Pokemon extends Component {
 
   render() {
     let body = null;
-    if (this.state.loading) {
+    if (this.state.error) {
+      return <Redirect to="/404" />;
+    } else if (this.state.loading) {
       body = (
         <div>
           <br />
