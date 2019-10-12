@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import { Pagination, PaginationItem } from "reactstrap";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 
 const paperStyle = {
   margin: "4rem",

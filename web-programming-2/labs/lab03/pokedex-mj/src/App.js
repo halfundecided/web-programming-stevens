@@ -17,7 +17,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(1, 7),
-    backgroundColor: "#ffcccc"
+    backgroundColor: "#d1ccc0"
   },
   link: {
     display: "flex"
@@ -69,9 +69,12 @@ function App() {
         <header className="App-header" style={headerStyle}>
           <br />
           <Paper elevation={0} className={classes.root} style={paperStyle}>
-            <Breadcrumbs aria-label="breadcrumb">
+            <Breadcrumbs
+              aria-label="breadcrumb"
+              style={{ color: "rgb(38, 38, 38)" }}
+            >
               <Link
-                color="inherit"
+                color="#rgb(38, 38, 38)"
                 href="/pokemon/page/0"
                 target="_self"
                 className={classes.link}
@@ -80,7 +83,7 @@ function App() {
                 Pokemon
               </Link>
               <Link
-                color="inherit"
+                color="#rgb(38, 38, 38)"
                 href="/berries/page/0"
                 target="_self"
                 className={classes.link}
@@ -89,7 +92,7 @@ function App() {
                 Berries
               </Link>
               <Link
-                color="inherit"
+                color="#rgb(38, 38, 38)"
                 href="/machines/page/0"
                 target="_self"
                 className={classes.link}
@@ -110,7 +113,7 @@ function App() {
           <br />
           <Divider
             style={{
-              backgroundColor: "#4b4b4b"
+              backgroundColor: "rgb(38, 38, 38)"
             }}
           />
           <Switch>
