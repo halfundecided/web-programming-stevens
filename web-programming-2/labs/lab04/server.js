@@ -17,7 +17,7 @@ const getById = id => {
       if (data[index]) {
         resolve(data[index]);
       } else {
-        reject(new Error("something went wrong"));
+        reject(new Error(`The provided id is not found or it's invalid id`));
       }
     }, 5000);
   });
@@ -28,8 +28,23 @@ const getById = id => {
  */
 app.get("/api/people/history", async (req, res) => {
   try {
-    console.log(data);
-  } catch (e) {}
+    await client.lrange("history", 0, 19, (err, users) => {
+      try {
+        let recent = [];
+        for (var i = 0; i < users.length; i++) {
+          let thisUser = JSON.parse(users[i]);
+          recent.push(thisUser);
+        }
+        res.json(recent);
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: e });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: e });
+  }
 });
 
 /**
@@ -41,14 +56,14 @@ app.get("/api/people/:id", async (req, res) => {
     let userId = req.params.id;
     let thisUser;
     /* Exist in cache? */
-    let existed = await client.existAsync(personId);
+    let existed = await client.existsAsync(userId);
     /* Found */
     if (existed === 1) {
       let user = await client.getAsync(userId);
       thisUser = JSON.parse(user);
     } else {
       /* Not found */
-      thisUser = await data.getById(userId);
+      thisUser = await getById(userId);
       await client.setAsync(userId, JSON.stringify(thisUser));
     }
     await client.lpush("history", JSON.stringify(thisUser));
