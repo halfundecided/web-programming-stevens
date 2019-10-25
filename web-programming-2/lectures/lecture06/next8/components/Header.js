@@ -1,4 +1,3 @@
-28 lines (25 sloc) 414 Bytes
 import Link from 'next/link';
 
 const Header = () => (

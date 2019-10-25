@@ -9,11 +9,8 @@ For this lab, you will not be programming, but rather analyzing several scenario
 In this scenario, you are tasked with creating a logging server for any number of other arbitrary pieces of technologies.  
 Your logs should have some common fields, but support any number of customizeable fields for an individual log entry. You should be able to effectively query them based on any of these fields.
 
-- How would you store your log entries?
-- How would you allow users to submit log entries?
-- How would you allow them to query log entries?
-- How would you allow them to see their log entries?
-- What would be your web server?
+I would use Amazon S3(Simple Storage Service) to store log entries wit. The service maximizes benefits of scale and passes those benefits on to developers, meaning it will be beneficial to store the huge amount of log entries.  
+Amazon S3 has the feature for server access logging which provides detailed records for the requests that are made to a bucket. This feature also includes enabling logs for request and querying logs for requests. Also, it allow us to customize access log information with various fields such as Time, Remote IP, Request ID, HTTP status, Error code and so on.
 
 ## Scenario 2: Expense Reports
 
@@ -22,10 +19,13 @@ Users should be able to submit expenses, which are always of the same data struc
 When an expense is reimbursed you will generate a PDF and email it to the user who submitted the expense.
 
 - How would you store your expenses?
+  - I would use mongoDB because it will be only one collection with the same data entries.
 - What web server would you choose, and why?
+  - I would use Express to manage a werver and routes because I am making a simple web service. I only need to have few routes to handle user's request to submit expenses.
 - How would you handle the emails?
-- How would you handle the PDF generation?
-- How are you going to handle all the templating for the web application?
+  - I would use Gmail API to handle the emails since it allows us to create draft emails and send email to the user. Also The Gmail API allows to upload attachment as well which will be a PDF file in this scenario.
+- How would you handle the PDF generation? How are you going to handle all the templating for the web application?
+  - I would use PDF Generator API(link)[https://www.programmableweb.com/api/pdf-generator] since it provides templates tht can be merged with data from REST API to create PDF documents.
 
 ## Scenario 3: A Twitter Streaming Safety Service
 
@@ -38,25 +38,13 @@ This application comes with several parts:
 - A historical database to view possible incidents (tweets that triggered an alert) and to mark its investigation status.
 - A historical log of all tweets to retroactively search through.
 - A streaming, online incident report. This would allow you to see tweets as they are parsed and see their threat level. This updates in real time.
-- A long term storage of all the media used by any tweets in your area (pictures, snapchots of the URL, etc).
+- A long term storage of all the media used by any tweets in your area (pictures, snapshots of the URL, etc).
 
-Questions:
-
-- Which Twitter API do you use?
-- How would you build this so its expandable to beyond your local precint?
-- What would you do to make sure that this system is constantly stable?
-- What would be your web server technology?
-- What databases would you use for triggers? and for the historical log of tweets?
-- How would you handle the real time, streaming incident report?
-- How would you handle storing all the media that you have to store as well?
-- What web server technology would you use?
+There is a [PowerTrack API](https://developer.twitter.com/en/docs/tweets/filter-realtime/overview/powertrack-api) which allows to filter the full Twiiter firehose to receive the only data(tweets which contains trigger words) that we want to get. We can set various attributes including geo-location and language, which means it can be used beyond the specific location. This API also covers the real-time updating feature to stream incident reports. For the text alerting system, there is the service called [plivo](https://www.plivo.com/docs/sms/use-cases/sms-notification/) to quickly send updates to users(officers). For the email alerting system, we can use Gmail API in this scenario as well. MongoDB will be also useful in this case since it should be easily searchable and status-changable through the historical tweets. Last, I would S3 bucket for the long term storage to store media because we can upload any number of objects to the bucket and easily manage them.
 
 ## Scenario 4: A Mildly Interesting Mobile Application
 
 In this scenario, you are tasked with creating the web server side for a mobile application allows users to see midly interesting pictures in their geographical location.  
 Users must have an account to use this service. Your backend will effectively amount to an API and a storage solution for CRUD users, CRUD 'interesting events', as well as an administrative dashboard for managing content.
 
-- How would you handle the geospatial nature of your data?
-- How would you store images, both for long term, cheap storage and for short term, fast retrieval?
-- What would you write your API in?
-- What would be your database?
+For geographical location, I would store the sets of longitude and latitude in MongoDB database to easily access to them. For the storage part, Amazon S3 bucket would be the best option since it is a highly-scalable and secure solution. This option is perfect for general purpose files that are frequently accessed, for files that are required to be archived for the long-term but are rarely accessed. Also, it is extremely secure because Amazon S3 can be used alone.
