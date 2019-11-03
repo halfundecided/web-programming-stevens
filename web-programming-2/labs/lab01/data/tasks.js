@@ -81,6 +81,14 @@ const updateTask = async (taskId, updatedTask) => {
   )
     throw `You should provide all details (completed as well)`;
 
+  if (
+    updatedTask.title.constructor !== String ||
+    updatedTask.description.constructor !== String ||
+    updatedTask.hoursEstimated.constructor !== Number ||
+    updatedTask.completed.constructor !== Boolean
+  )
+    throw `You should provide a proper input`;
+
   const originalTask = await module.exports.getTaskById(taskId);
   const taskCollection = await tasks();
   const parsedId = ObjectId.createFromHexString(taskId);
@@ -118,15 +126,23 @@ const updateTaskForPatch = async (taskId, updatedTask) => {
 
   const updatedTaskData = {};
   if (updatedTask.title) {
+    if (updatedTask.title.constructor !== String)
+      throw `You should provide a proper input type`;
     updatedTaskData.title = updatedTask.title;
   }
   if (updatedTask.description) {
+    if (updatedTask.description.constructor !== String)
+      throw `You should provide a proper input type`;
     updatedTaskData.description = updatedTask.description;
   }
   if (updatedTask.hoursEstimated) {
+    if (updatedTask.hoursEstimated.constructor !== Number)
+      throw `You should provide a proper input type`;
     updatedTaskData.hoursEstimated = updatedTask.hoursEstimated;
   }
-  if (updatedTask.completed) {
+  if (typeof updatedTask.completed !== "undefined") {
+    if (updatedTask.completed.constructor !== Boolean)
+      throw `You should provide a proper input type`;
     updatedTaskData.completed = updatedTask.completed;
   }
 
