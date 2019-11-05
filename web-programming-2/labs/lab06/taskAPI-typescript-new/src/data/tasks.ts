@@ -21,8 +21,6 @@ const getAll = async (skip: number, take: number): Promise<object> => {
 };
 
 const getTaskById = async (id: string): Promise<object> => {
-  // if (typeof id === "undefined" || id.constructor !== String)
-  // throw `${id} invalid id`;
   const taskCollection = await tasks();
   const parsedId = ObjectId.createFromHexString(id);
   const thisTask = await taskCollection.findOne({ _id: parsedId });
@@ -124,12 +122,54 @@ const updateTaskForPatch = async (
   return await module.exports.getTaskById(taskId);
 };
 
+const addComment = async (
+  taskId: string,
+  name: string,
+  comment: string
+): Promise<object> => {
+  const taskCollection = await tasks();
+  const parsedId = ObjectId.createFromHexString(taskId);
+
+  const newComment = {
+    _id: null,
+    name: name,
+    comment: comment
+  };
+  newComment._id = new ObjectId();
+
+  const insertedComment = await taskCollection.updateOne(
+    { _id: parsedId },
+    { $addToSet: { comments: newComment } }
+  );
+
+  if (insertedComment.modifiedCount === 0)
+    throw `could not add a comment successfully`;
+
+  return await module.exports.getTaskById(taskId);
+};
+
+const removeComment = async (taskId: string, commentId: string) => {
+  const taskCollection = await tasks();
+  const parsedTaskId = ObjectId.createFromHexString(taskId);
+  const parsedCommentId = ObjectId.createFromHexString(commentId);
+
+  const deletionComment = await taskCollection.findOneAndUpdate(
+    { _id: parsedTaskId },
+    { $pull: { comments: { _id: parsedCommentId } } }
+  );
+
+  if (deletionComment.deletedCount === 0) {
+    throw "Could not remove comment.";
+  }
+  return deletionComment;
+};
+
 module.exports = {
   getAll,
   getTaskById,
   createTask,
   updateTask,
-  updateTaskForPatch
-  // addComment,
-  // removeCommen
+  updateTaskForPatch,
+  addComment,
+  removeComment
 };
