@@ -1,6 +1,6 @@
 const dbConnection = require("./mongoConnection");
 
-const getCollectionFn = collection => {
+const getCollectionFn = (collection: string) => {
   let _col = undefined;
 
   return async () => {

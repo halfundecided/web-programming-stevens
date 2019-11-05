@@ -1,16 +1,17 @@
 import * as express from "express";
 import * as bodyParser from "body-parser"; //used to parse the form data that you pass in the request
-import { Pokemons } from "./routes/pokemons";
+import { Tasks } from "./routes/taskRoute";
 var totalRequests: number = 0;
-var dict: object = {};
 class App {
   public app: express.Application;
-  public pokeRoutes: Pokemons = new Pokemons();
+  // public pokeRoutes: Pokemons = new Pokemons();
+  public taskRoutes: Tasks = new Tasks();
 
   constructor() {
     this.app = express(); //run the express instance and store in app
     this.config();
-    this.pokeRoutes.routes(this.app);
+    // this.pokeRoutes.routes(this.app);
+    this.taskRoutes.routes(this.app);
   }
 
   Logger = (req: express.Request, res: express.Response, next: Function) => {

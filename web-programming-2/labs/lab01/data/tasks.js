@@ -10,6 +10,7 @@ const getAll = async (skip, take) => {
     .skip(skip)
     .limit(take)
     .toArray();
+  console.log(typeof allTasks);
   return allTasks;
 };
 
