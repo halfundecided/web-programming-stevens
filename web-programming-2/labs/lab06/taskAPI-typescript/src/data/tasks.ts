@@ -9,7 +9,7 @@ interface TaskForPatch {
   completed?: boolean;
 }
 
-const getAll = async (skip: number, take: number): Promise<object> => {
+const getAll = async (skip?: number, take?: number): Promise<object> => {
   const taskCollection = await tasks();
   const allTasks = await taskCollection
     .find({})
@@ -21,10 +21,11 @@ const getAll = async (skip: number, take: number): Promise<object> => {
 };
 
 const getTaskById = async (id: string): Promise<object> => {
+  if (typeof id === "undefined" || id.constructor !== String)
+    throw `${id} invalid id`;
   const taskCollection = await tasks();
   const parsedId = ObjectId.createFromHexString(id);
   const thisTask = await taskCollection.findOne({ _id: parsedId });
-
   if (thisTask == null) throw "No task found with this Id";
 
   return thisTask;
@@ -35,7 +36,16 @@ const createTask = async (
   description: string,
   hoursEstimated: number
 ): Promise<object> => {
-  // argument check?
+  if (
+    typeof title === "undefined" ||
+    typeof description === "undefined" ||
+    typeof hoursEstimated === "undefined"
+  )
+    throw `one or more of arguments not provided`;
+  if (title.constructor !== String) throw `Invalid title`;
+  if (description.constructor !== String) throw `Invalid description`;
+  if (hoursEstimated.constructor !== Number) throw `Invalid estimated hours`;
+
   const taskCollection = await tasks();
 
   const newTask = {
@@ -62,8 +72,25 @@ const updateTask = async (
   taskHoursEstimated: number,
   taskCompleted: boolean
 ): Promise<object> => {
-  // const newTask = updatedTask;
-  // argument check?
+  if (typeof taskId === "undefined" || taskId.constructor !== String)
+    throw `You should provide a valid id`;
+
+  if (
+    typeof taskTitle === "undefined" ||
+    typeof taskDescription === "undefined" ||
+    typeof taskHoursEstimated === "undefined" ||
+    typeof taskCompleted === "undefined"
+  )
+    throw `You should provide all details (completed as well)`;
+
+  if (
+    taskTitle.constructor !== String ||
+    taskDescription.constructor !== String ||
+    taskHoursEstimated.constructor !== Number ||
+    taskCompleted.constructor !== Boolean
+  )
+    throw `You should provide a proper input`;
+
   const originalTask = await module.exports.getTaskById(taskId);
   const taskCollection = await tasks();
   const parsedId = ObjectId.createFromHexString(taskId);
@@ -94,20 +121,31 @@ const updateTaskForPatch = async (
   taskHoursestimated?: number,
   taskCompleted?: boolean
 ): Promise<object> => {
+  if (typeof taskId === "undefined" || taskId.constructor !== String)
+    throw `You should provide a valid id`;
+
   const taskCollection = await tasks();
   const parsedId = ObjectId.createFromHexString(taskId);
 
   const updatedTaskData: TaskForPatch = {};
   if (taskTitle) {
+    if (taskTitle.constructor !== String)
+      throw `You should provide a proper input type`;
     updatedTaskData.title = taskTitle;
   }
   if (taskDescription) {
+    if (taskDescription.constructor !== String)
+      throw `You should provide a proper input type`;
     updatedTaskData.description = taskDescription;
   }
   if (taskHoursestimated) {
+    if (taskHoursestimated.constructor !== Number)
+      throw `You should provide a proper input type`;
     updatedTaskData.hoursEstimated = taskHoursestimated;
   }
   if (typeof taskCompleted !== "undefined") {
+    if (taskCompleted.constructor !== Boolean)
+      throw `You should provide a proper input type`;
     updatedTaskData.completed = taskCompleted;
   }
 
@@ -127,15 +165,24 @@ const addComment = async (
   name: string,
   comment: string
 ): Promise<object> => {
+  if (typeof taskId === "undefined" || taskId.constructor !== String)
+    throw `You should provide a valid id`;
+
+  if (typeof name === "undefined" || typeof comment === "undefined")
+    throw `one or more of arguments not provided`;
+
+  if (name.constructor !== String) throw `invalid name`;
+  if (comment.constructor !== String) throw `invalid comment`;
+
   const taskCollection = await tasks();
   const parsedId = ObjectId.createFromHexString(taskId);
 
   const newComment = {
-    _id: null,
+    id: null,
     name: name,
     comment: comment
   };
-  newComment._id = new ObjectId();
+  newComment.id = new ObjectId();
 
   const insertedComment = await taskCollection.updateOne(
     { _id: parsedId },
@@ -149,13 +196,17 @@ const addComment = async (
 };
 
 const removeComment = async (taskId: string, commentId: string) => {
+  if (typeof taskId === "undefined" || taskId.constructor !== String)
+    throw `You should provide a valid task id`;
+  if (typeof commentId === "undefined" || commentId.constructor !== String)
+    throw `You should provide a valid comment id`;
   const taskCollection = await tasks();
   const parsedTaskId = ObjectId.createFromHexString(taskId);
   const parsedCommentId = ObjectId.createFromHexString(commentId);
 
   const deletionComment = await taskCollection.findOneAndUpdate(
     { _id: parsedTaskId },
-    { $pull: { comments: { _id: parsedCommentId } } }
+    { $pull: { comments: { id: parsedCommentId } } }
   );
 
   if (deletionComment.deletedCount === 0) {
