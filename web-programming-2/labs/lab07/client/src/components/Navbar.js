@@ -1,47 +1,84 @@
-import React from "react";
-import { makeStyles, Paper, Breadcrumbs, Link } from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
-
-import HomePage from "../pages/HomePage/HomePage";
+import React, { useState } from "react";
+import {
+  makeStyles,
+  AppBar,
+  Toolbar,
+  Typography,
+  Menu,
+  MenuItem
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    border: "1px solid black",
-    padding: "3rem",
-    display: "flex",
-    justifyContent: "center"
+    backgroundColor: "#21252b"
   },
-  link: {
-    fontSize: "1.5rem",
-    padding: "1rem"
+  menuButton: {
+    marginRight: theme.spacing(2)
   },
-  icon: {
-    marginRight: theme.spacing(0.5),
-    width: 20,
-    height: 20
+  title: {
+    flexGrow: 1
   }
 }));
+
 const Navbar = () => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <Paper elevation={0} className={classes.root}>
-      <Breadcrumbs arial-label="breadcrumb">
-        <Link color="inherit" href="/" className={classes.link}>
-          <HomeIcon className={classes.icon} />
-          Material-UI
-        </Link>
-        <Link color="inherit" href="/my-bin" className={classes.link}>
-          <HomeIcon className={classes.icon} />
-          Material-UI
-        </Link>
-        <Link color="inherit" href="/" className={classes.link}>
-          <HomeIcon className={classes.icon} />
-          Material-UI
-        </Link>
-      </Breadcrumbs>
-    </Paper>
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            onClick={handleClick}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            keepMounted
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              style: {
+                width: 200,
+                height: "auto"
+              }
+            }}
+          >
+            <MenuItem component={Link} to="/" onClick={handleClose}>
+              Home
+            </MenuItem>
+            <MenuItem component={Link} to="/my-bin" onClick={handleClose}>
+              Bin
+            </MenuItem>
+            <MenuItem component={Link} to="/my-posts" onClick={handleClose}>
+              Post
+            </MenuItem>
+          </Menu>
+          <DeleteSweepIcon />
+          <Typography variant="h6" className={classes.title}>
+            Binterest
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 };
 

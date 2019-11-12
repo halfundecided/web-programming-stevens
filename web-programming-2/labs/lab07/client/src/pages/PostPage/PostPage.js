@@ -1,12 +1,10 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
-import Feed from "../../components/Feed";
 
-export default function HomePage() {
+export default function PostPage() {
   return (
     <div>
       <Navbar />
-      <Feed />
     </div>
   );
 }
