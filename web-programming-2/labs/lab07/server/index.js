@@ -8,14 +8,13 @@ const typeDefs = gql`
     id: ID!
     url: String!
     poster_name: String!
-    description: String!
+    description: String
     user_posted: Boolean!
     binned: Boolean!
   }
 
   type Query {
-    # unsplashImages(pageNum: Int): [ImagePost]
-    unsplashImages: [ImagePost]
+    unsplashImages(pageNum: Int): [ImagePost]
     likedImages: [ImagePost]
     userPostedImages: [ImagePost]
   }
@@ -32,7 +31,10 @@ const resolvers = {
   Mutation
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+});
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url} 🚀`);
