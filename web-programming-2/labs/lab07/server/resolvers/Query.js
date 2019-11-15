@@ -5,8 +5,6 @@ const unsplashImages = async (_, args) => {
   const imageData = await axios.get(
     `https://api.unsplash.com/photos/?client_id=a337360e8e9063fc858f1ccdf474126575adee5c1d5f5c9447345d6d7f748bc4&page=${args.pageNum}`
   );
-
-  console.log(imageData.data);
   imageData.data.forEach(element =>
     ImagePost.push({
       id: element.id,
@@ -29,5 +27,3 @@ module.exports = {
   likedImages,
   userPostedImages
 };
-
-// does all of them need to be async function?
