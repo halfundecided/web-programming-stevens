@@ -18,7 +18,14 @@ const typeDefs = gql`
 
   type Mutation {
     uploadImage(url: String!, description: String, author: String): ImagePost
-    updateImage(url: String, description: String, binned: Boolean): ImagePost
+    updateImage(
+      id: ID!
+      url: String
+      author: String
+      description: String
+      user_posted: Boolean
+      binned: Boolean
+    ): ImagePost
     deleteImage(id: ID!): ImagePost
   }
 `;

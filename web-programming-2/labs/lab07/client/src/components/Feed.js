@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { makeStyles, Button } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import UnsplashPosts from "./UnsplashPosts";
-import { flexbox } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
   root: {

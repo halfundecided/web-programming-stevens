@@ -1,4 +1,5 @@
 const axios = require("axios");
+const cacheData = require("../data/redis");
 
 const unsplashImages = async (_, args) => {
   let ImagePost = [];
@@ -20,7 +21,14 @@ const unsplashImages = async (_, args) => {
 
 const likedImages = async (parent, args) => {};
 
-const userPostedImages = async (parent, args) => {};
+const userPostedImages = async (parent, args) => {
+  try {
+    const allUserPostedImages = await cacheData.readAllUserPostedImages();
+    return allUserPostedImages;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 module.exports = {
   unsplashImages,

@@ -1,12 +1,7 @@
-const redis = require("redis");
 const uuid = require("node-uuid");
-const client = redis.createClient();
+const cacheData = require("../data/redis");
 
-client.on("connect", function() {
-  console.log("Connected to Redis🛹");
-});
-
-const uploadImage = async (parent, args) => {
+const uploadImage = async (_, args) => {
   let ImagePost = {
     id: uuid.v4(),
     url: args.url,
@@ -15,13 +10,29 @@ const uploadImage = async (parent, args) => {
     user_posted: true,
     binned: false
   };
+
   try {
-  } catch (e) {}
+    const createdUserPostedImage = await cacheData.createUserPostedImage(
+      ImagePost
+    );
+    return createdUserPostedImage;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-const updateImage = async (parent, args) => {};
+const updateImage = async (_, args) => {};
 
-const deleteImage = async (parent, args) => {};
+const deleteImage = async (_, args) => {
+  try {
+    const deletedUserPostedImage = await cacheData.deleteUserPostedImage(
+      args.id
+    );
+    return deletedUserPostedImage;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 module.exports = {
   uploadImage,
