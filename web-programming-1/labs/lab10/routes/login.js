@@ -5,13 +5,16 @@ const userData = data.users;
 const bcrypt = require("bcrypt");
 
 router.get("/", async (req, res) => {
+  /* If the user is authenticated, it will redirect to /private */
   if (req.session.user) {
     res.redirect("/private");
   } else {
+    /* If the user is not authenticated... */
     res.render("login", {});
   }
 });
 
+/* goes here */
 router.post("/login", async (req, res) => {
   try {
     let username = req.body.username;

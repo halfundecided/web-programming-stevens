@@ -12,4 +12,16 @@ const getUnsplashPostsQuery = gql`
   }
 `;
 
-export { getUnsplashPostsQuery };
+const getUserPostedImagesQuery = gql`
+  {
+    userPostedImages {
+      id
+      url
+      poster_name
+      description
+      binned
+    }
+  }
+`;
+
+export { getUnsplashPostsQuery, getUserPostedImagesQuery };
