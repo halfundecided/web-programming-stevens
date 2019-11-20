@@ -7,7 +7,6 @@ bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
 const POST_CACHE_KEY = "post";
-const BIN_CACHE_KEY = "bin";
 
 /* User-Posted Image Collection */
 const createUserPostedImage = async obj => {
@@ -26,15 +25,13 @@ const readAllUserPostedImages = async () => {
   return Object.values(userPostedImages).map(p => JSON.parse(p));
 };
 
-const updateUserPostedImage = async id => {};
-
 const deleteUserPostedImage = async id => {
   const deletedPost = await client.hgetAsync(POST_CACHE_KEY, id);
   await client.hdelAsync(POST_CACHE_KEY, id);
   return JSON.parse(deletedPost);
 };
 
-/* Binned Image Collection */
+const getBinnedImages = async () => {};
 
 module.exports = {
   createUserPostedImage,

@@ -24,4 +24,13 @@ const getUserPostedImagesQuery = gql`
   }
 `;
 
-export { getUnsplashPostsQuery, getUserPostedImagesQuery };
+const addNewPostMutation = gql`
+  mutation($url: String!, $description: String, $author: String) {
+    uploadImage(url: $url, description: $description, author: $author) {
+      id
+      author
+    }
+  }
+`;
+
+export { getUnsplashPostsQuery, getUserPostedImagesQuery, addNewPostMutation };

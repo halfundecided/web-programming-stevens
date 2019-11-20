@@ -19,7 +19,7 @@ const unsplashImages = async (_, args) => {
   return ImagePost;
 };
 
-const likedImages = async (parent, args) => {};
+const binnedImages = async (parent, args) => {};
 
 const userPostedImages = async (parent, args) => {
   try {
@@ -32,6 +32,6 @@ const userPostedImages = async (parent, args) => {
 
 module.exports = {
   unsplashImages,
-  likedImages,
+  binnedImages,
   userPostedImages
 };

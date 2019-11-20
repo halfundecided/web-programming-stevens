@@ -12,7 +12,7 @@ const typeDefs = gql`
 
   type Query {
     unsplashImages(pageNum: Int): [ImagePost]
-    likedImages: [ImagePost]
+    binnedImages: [ImagePost]
     userPostedImages: [ImagePost]
   }
 
