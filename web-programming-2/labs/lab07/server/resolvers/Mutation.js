@@ -2,6 +2,13 @@ const uuid = require("node-uuid");
 const cacheData = require("../data/redis");
 
 const uploadImage = async (_, args) => {
+  if (
+    args.url.constructor !== String ||
+    args.description !== String ||
+    args.author !== String
+  ) {
+    throw `form is not valid`;
+  }
   let ImagePost = {
     id: uuid.v4(),
     url: args.url,

@@ -15,11 +15,34 @@ const createUserPostedImage = async obj => {
   return JSON.parse(uploadedPost);
 };
 
-// Query: userpostedImages
+// const readAllUserPostedImages = async () => {
+//   const userPostedImages = await client.hgetallAsync(POST_CACHE_KEY);
+//   return Object.values(userPostedImages).map(p => JSON.parse(p));
+// };
+
 const readAllUserPostedImages = async () => {
-  const userPostedImages = await client.hgetallAsync(POST_CACHE_KEY);
-  return Object.values(userPostedImages).map(p => JSON.parse(p));
+  const allImages = await client.hgetallAsync(POST_CACHE_KEY);
+  let userPostedImages = [];
+  allUserPostedImageArr = Object.values(allImages).map(p => JSON.parse(p));
+  allUserPostedImageArr.forEach(element => {
+    if (element.user_posted === true) {
+      userPostedImages.push(element);
+    }
+  });
+  return userPostedImages;
 };
+
+// const getAllBinnedImages = async () => {
+//   const userPostedImages = await client.hgetallAsync(POST_CACHE_KEY);
+//   let binnedImages = [];
+//   allImageArr = Object.values(userPostedImages).map(p => JSON.parse(p));
+//   allImageArr.forEach(element => {
+//     if (element.binned === true) {
+//       binnedImages.push(element);
+//     }
+//   });
+//   return binnedImages;
+// };
 
 const updateImage = async obj => {
   /* Case1: / route */
@@ -36,7 +59,7 @@ const updateImage = async obj => {
         POST_CACHE_KEY,
         obj.id
       );
-      await client.hdelAsync(PointerEvent, obj.id);
+      await client.hdelAsync(POST_CACHE_KEY, obj.id);
       return JSON.parse(unbinnedUnsplashPost);
     }
   }

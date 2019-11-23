@@ -7,6 +7,7 @@ const getUnsplashPostsQuery = gql`
       url
       poster_name
       description
+      user_posted
       binned
     }
   }
@@ -19,6 +20,7 @@ const getUserPostedImagesQuery = gql`
       url
       poster_name
       description
+      user_posted
       binned
     }
   }
@@ -31,6 +33,7 @@ const addNewPostMutation = gql`
       url
       poster_name
       description
+      user_posted
       binned
     }
   }
@@ -48,11 +51,16 @@ const updatePostMutation = gql`
     updateImage(
       id: $id
       url: $url
+      author: $author
       description: $description
       user_posted: $user_posted
       binned: $binned
     ) {
       id
+      url
+      poster_name
+      description
+      user_posted
       binned
     }
   }
@@ -62,6 +70,11 @@ const deletePostMutation = gql`
   mutation($id: ID!) {
     deleteImage(id: $id) {
       id
+      url
+      poster_name
+      description
+      user_posted
+      binned
     }
   }
 `;
@@ -73,6 +86,7 @@ const getBinnedImagesQuery = gql`
       url
       poster_name
       description
+      user_posted
       binned
     }
   }

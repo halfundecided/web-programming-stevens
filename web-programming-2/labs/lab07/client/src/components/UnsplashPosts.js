@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
   makeStyles,
   CircularProgress,
@@ -8,7 +8,6 @@ import {
   CardContent,
   Typography,
   Avatar,
-  Fab,
   Button
 } from "@material-ui/core";
 import { useQuery, useMutation } from "@apollo/react-hooks";
@@ -43,26 +42,17 @@ const useStyles = makeStyles(theme => ({
 
 const UnsplashPosts = pageNum => {
   const classes = useStyles();
-
+  // const [updateImage] = useMutation(updatePostMutation, {
+  //   update(cache, { data: { updateImage } }) {
+  //     const { images } = cache.readQuery({ query: getUnsplashPostsQuery });
+  //     cache.writeQuery({
+  //       query: getUnsplashPostsQuery,
+  //       data: { images: images.concat([updateImage]) }
+  //     });
+  //   }
+  // });
   const [updateImage] = useMutation(updatePostMutation);
 
-  // how would I retreive variables from upsplashPost JSX?
-  // const updateCB = useCallback(
-  //   e => {
-  //     e.preventDefault();
-  //     updateImage({
-  //       variables: {
-  //         Id,
-  //         url,
-  //         author,
-  //         description,
-  //         user_posted,
-  //         binned
-  //       }
-  //     });
-  //   },
-  //   [id, url, author, description, user_posted, binned, updateImage]
-  // );
   const { loading, error, data } = useQuery(getUnsplashPostsQuery, {
     variables: pageNum
   });
@@ -77,9 +67,8 @@ const UnsplashPosts = pageNum => {
   if (error) return <p>Error :(</p>;
 
   const { unsplashImages } = data;
-  unsplashImages.map(({ id, poster_name, url, description, binned }) => {});
   const unsplashPost = unsplashImages.map(
-    ({ id, poster_name, url, description, binned }) => {
+    ({ id, poster_name, url, description, user_posted, binned }) => {
       return (
         <Card key={id} className={classes.card}>
           <CardHeader
@@ -113,6 +102,10 @@ const UnsplashPosts = pageNum => {
                   updateImage({
                     variables: {
                       id,
+                      url,
+                      author: poster_name,
+                      description,
+                      user_posted,
                       binned: false
                     }
                   });

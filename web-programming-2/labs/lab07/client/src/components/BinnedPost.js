@@ -9,10 +9,10 @@ import {
   CardContent,
   Typography,
   Avatar,
-  Fab
+  Button
 } from "@material-ui/core";
-import { useQuery } from "@apollo/react-hooks";
-import { getBinnedImagesQuery } from "../queries/queries";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { getBinnedImagesQuery, updatePostMutation } from "../queries/queries";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -43,7 +43,19 @@ const useStyles = makeStyles(theme => ({
 
 const BinnedPost = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(getBinnedImagesQuery);
+  // const [updateImage] = useMutation(updatePostMutation, {
+  //   update(cache, { data: { updateImage } }) {
+  //     const { images } = cache.readQuery({ query: getBinnedImagesQuery });
+  //     cache.writeQuery({
+  //       query: getBinnedImagesQuery,
+  //       data: { images: images.concat([updateImage]) }
+  //     });
+  //   }
+  // });
+  const [updateImage] = useMutation(updatePostMutation);
+  const { loading, error, data } = useQuery(getBinnedImagesQuery, {
+    pollInterval: 500
+  });
 
   if (loading)
     return (
@@ -57,7 +69,7 @@ const BinnedPost = () => {
 
   const { binnedImages } = data;
   const binnedImagePosts = binnedImages.map(
-    ({ id, poster_name, url, description, binned }) => {
+    ({ id, poster_name, url, description, user_posted, binned }) => {
       return (
         <Card key={id} className={classes.card}>
           <CardHeader
@@ -80,27 +92,51 @@ const BinnedPost = () => {
           </CardContent>
           <div className={classes.buttonWrap}>
             {binned ? (
-              <Fab
-                variant="extended"
-                size="small"
+              <Button
+                variant="contained"
                 color="primary"
-                aria-label="remove"
-                className={classes.binButton}
+                className={classes.button}
+                startIcon={
+                  <RemoveCircleOutlineIcon className={classes.extendedIcon} />
+                }
+                onClick={e => {
+                  updateImage({
+                    variables: {
+                      id,
+                      url,
+                      author: poster_name,
+                      description,
+                      user_posted,
+                      binned: false
+                    }
+                  });
+                }}
               >
-                <RemoveCircleOutlineIcon className={classes.extendedIcon} />
                 Remove from Bin
-              </Fab>
+              </Button>
             ) : (
-              <Fab
-                variant="extended"
-                size="small"
+              <Button
+                variant="contained"
                 color="primary"
-                aria-label="add"
-                className={classes.binButton}
+                className={classes.button}
+                startIcon={
+                  <AddCircleOutlineIcon className={classes.extendedIcon} />
+                }
+                onClick={e => {
+                  updateImage({
+                    variables: {
+                      id,
+                      url,
+                      author: poster_name,
+                      description,
+                      user_posted,
+                      binned: true
+                    }
+                  });
+                }}
               >
-                <AddCircleOutlineIcon className={classes.extendedIcon} />
                 Add to Bin
-              </Fab>
+              </Button>
             )}
           </div>
         </Card>

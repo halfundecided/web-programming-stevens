@@ -13,7 +13,8 @@ import {
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import {
   getUserPostedImagesQuery,
-  deletePostMutation
+  deletePostMutation,
+  updatePostMutation
 } from "../queries/queries";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -47,6 +48,16 @@ const useStyles = makeStyles(theme => ({
 
 const UserPost = () => {
   const classes = useStyles();
+  // const [updateImage] = useMutation(updatePostMutation, {
+  //   update(cache, { data: { updateImage } }) {
+  //     const { images } = cache.readQuery({ query: getUserPostedImagesQuery });
+  //     cache.writeQuery({
+  //       query: getUserPostedImagesQuery,
+  //       data: { images: images.concat([updateImage]) }
+  //     });
+  //   }
+  // });
+  const [updateImage] = useMutation(updatePostMutation);
   const [deleteImage] = useMutation(deletePostMutation);
   const { loading, error, data } = useQuery(getUserPostedImagesQuery, {
     pollInterval: 500
@@ -64,7 +75,7 @@ const UserPost = () => {
 
   const { userPostedImages } = data;
   const userPostedImagePost = userPostedImages.map(
-    ({ id, poster_name, url, description, binned }) => {
+    ({ id, poster_name, url, description, user_posted, binned }) => {
       return (
         <Card key={id} className={classes.card}>
           <CardHeader
@@ -94,6 +105,18 @@ const UserPost = () => {
                 startIcon={
                   <RemoveCircleOutlineIcon className={classes.extendedIcon} />
                 }
+                onClick={e => {
+                  updateImage({
+                    variables: {
+                      id,
+                      url,
+                      author: poster_name,
+                      description,
+                      user_posted,
+                      binned: false
+                    }
+                  });
+                }}
               >
                 Remove from Bin
               </Button>
@@ -105,6 +128,18 @@ const UserPost = () => {
                 startIcon={
                   <AddCircleOutlineIcon className={classes.extendedIcon} />
                 }
+                onClick={e => {
+                  updateImage({
+                    variables: {
+                      id,
+                      url,
+                      author: poster_name,
+                      description,
+                      user_posted,
+                      binned: true
+                    }
+                  });
+                }}
               >
                 Add to Bin
               </Button>
