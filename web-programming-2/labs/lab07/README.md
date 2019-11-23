@@ -1,3 +1,12 @@
+# How to run this app
+
+1. Go to `/server`
+2. `npm i`
+3. `npm start` or `yarn start`
+4. Go to `/client`
+5. `npm i`
+6. `npm start` or `yarn start`
+
 # CS554 Web Programming2: Lab7
 
 For this assignment, we are going to apply what we've learned with Redis, React, and now finally GraphQL to make an image curation website similar to Pinterest, called Binterest.
