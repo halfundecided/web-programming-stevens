@@ -8,13 +8,17 @@ import {
   CardContent,
   Typography,
   Avatar,
-  Fab
+  Button
 } from "@material-ui/core";
-import { useQuery } from "@apollo/react-hooks";
-import { getUserPostedImagesQuery } from "../queries/queries";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import {
+  getUserPostedImagesQuery,
+  deletePostMutation
+} from "../queries/queries";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -31,7 +35,8 @@ const useStyles = makeStyles(theme => ({
   },
   buttonWrap: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
+    justifyContent: "space-around",
     alignItems: "center",
     marginBottom: theme.spacing(4)
   },
@@ -42,7 +47,10 @@ const useStyles = makeStyles(theme => ({
 
 const UserPost = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(getUserPostedImagesQuery);
+  const [deleteImage] = useMutation(deletePostMutation);
+  const { loading, error, data } = useQuery(getUserPostedImagesQuery, {
+    pollInterval: 500
+  });
 
   if (loading)
     return (
@@ -79,28 +87,43 @@ const UserPost = () => {
           </CardContent>
           <div className={classes.buttonWrap}>
             {binned ? (
-              <Fab
-                variant="extended"
-                size="small"
+              <Button
+                variant="contained"
                 color="primary"
-                aria-label="remove"
-                className={classes.binButton}
+                className={classes.button}
+                startIcon={
+                  <RemoveCircleOutlineIcon className={classes.extendedIcon} />
+                }
               >
-                <RemoveCircleOutlineIcon className={classes.extendedIcon} />
                 Remove from Bin
-              </Fab>
+              </Button>
             ) : (
-              <Fab
-                variant="extended"
-                size="small"
+              <Button
+                variant="contained"
                 color="primary"
-                aria-label="add"
-                className={classes.binButton}
+                className={classes.button}
+                startIcon={
+                  <AddCircleOutlineIcon className={classes.extendedIcon} />
+                }
               >
-                <AddCircleOutlineIcon className={classes.extendedIcon} />
                 Add to Bin
-              </Fab>
+              </Button>
             )}
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              startIcon={<DeleteIcon className={classes.extendedIcon} />}
+              onClick={e => {
+                deleteImage({
+                  variables: {
+                    id: id
+                  }
+                });
+              }}
+            >
+              Delete this Post
+            </Button>
           </div>
         </Card>
       );

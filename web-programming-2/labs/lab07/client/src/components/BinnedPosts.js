@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
+import BinnedPost from "./BinnedPost";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,7 +15,11 @@ const useStyles = makeStyles(theme => ({
 }));
 const BinnedPosts = () => {
   const classes = useStyles();
-  return <div className={classes.root}></div>;
+  return (
+    <div className={classes.root}>
+      <BinnedPost className={classes.postSection} />
+    </div>
+  );
 };
 
 export default BinnedPosts;

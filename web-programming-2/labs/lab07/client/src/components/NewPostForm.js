@@ -1,6 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { addNewPostMutation } from "../queries/queries";
+import {
+  addNewPostMutation,
+  getUserPostedImagesQuery
+} from "../queries/queries";
 import {
   makeStyles,
   Card,
@@ -61,7 +64,8 @@ const NewPostForm = () => {
           url,
           description,
           author
-        }
+        },
+        refetchQueries: [{ query: getUserPostedImagesQuery }]
       });
     },
     [url, description, author, uploadImage]
@@ -123,6 +127,7 @@ const NewPostForm = () => {
                 size="large"
                 className={classes.button}
                 startIcon={<SaveIcon />}
+                type="submit"
               >
                 Post
               </Button>

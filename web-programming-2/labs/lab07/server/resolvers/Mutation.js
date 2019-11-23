@@ -22,10 +22,7 @@ const uploadImage = async (_, args) => {
 };
 
 const updateImage = async (_, args) => {
-  // /* Add Unsplash Image to Bin */
-  // // once the user press add to bin button, it will fire this mutation with original field(args)
-  // if (args.user_posted === false && args.binned === false) {
-  const binningUnsplashImage = {
+  const updatingImage = {
     id: args.id,
     url: args.url,
     poster_name: args.author,
@@ -34,14 +31,11 @@ const updateImage = async (_, args) => {
     binned: args.binned
   };
   try {
-    const binnedUnsplashImage = await cacheData.addUnsplashImagetoBin(
-      binningUnsplashImage
-    );
-    return binnedUnsplashImage;
+    const updatedImage = await cacheData.updateImage(updatingImage);
+    return updatedImage;
   } catch (e) {
     console.log(e);
   }
-  // }
 };
 
 const deleteImage = async (_, args) => {

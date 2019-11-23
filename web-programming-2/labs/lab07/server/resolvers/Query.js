@@ -19,7 +19,14 @@ const unsplashImages = async (_, args) => {
   return ImagePost;
 };
 
-const binnedImages = async (parent, args) => {};
+const binnedImages = async (parent, args) => {
+  try {
+    const allBinnedImages = await cacheData.getAllBinnedImages();
+    return allBinnedImages;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const userPostedImages = async (parent, args) => {
   try {

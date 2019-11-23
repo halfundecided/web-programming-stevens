@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   makeStyles,
   CircularProgress,
@@ -8,10 +8,11 @@ import {
   CardContent,
   Typography,
   Avatar,
-  Fab
+  Fab,
+  Button
 } from "@material-ui/core";
-import { useQuery } from "@apollo/react-hooks";
-import { getUnsplashPostsQuery } from "../queries/queries";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { getUnsplashPostsQuery, updatePostMutation } from "../queries/queries";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -42,6 +43,26 @@ const useStyles = makeStyles(theme => ({
 
 const UnsplashPosts = pageNum => {
   const classes = useStyles();
+
+  const [updateImage] = useMutation(updatePostMutation);
+
+  // how would I retreive variables from upsplashPost JSX?
+  // const updateCB = useCallback(
+  //   e => {
+  //     e.preventDefault();
+  //     updateImage({
+  //       variables: {
+  //         Id,
+  //         url,
+  //         author,
+  //         description,
+  //         user_posted,
+  //         binned
+  //       }
+  //     });
+  //   },
+  //   [id, url, author, description, user_posted, binned, updateImage]
+  // );
   const { loading, error, data } = useQuery(getUnsplashPostsQuery, {
     variables: pageNum
   });
@@ -56,6 +77,7 @@ const UnsplashPosts = pageNum => {
   if (error) return <p>Error :(</p>;
 
   const { unsplashImages } = data;
+  unsplashImages.map(({ id, poster_name, url, description, binned }) => {});
   const unsplashPost = unsplashImages.map(
     ({ id, poster_name, url, description, binned }) => {
       return (
@@ -80,27 +102,47 @@ const UnsplashPosts = pageNum => {
           </CardContent>
           <div className={classes.buttonWrap}>
             {binned ? (
-              <Fab
-                variant="extended"
-                size="small"
+              <Button
+                variant="contained"
                 color="primary"
-                aria-label="remove"
-                className={classes.binButton}
+                className={classes.button}
+                startIcon={
+                  <RemoveCircleOutlineIcon className={classes.extendedIcon} />
+                }
+                onClick={e => {
+                  updateImage({
+                    variables: {
+                      id,
+                      binned: false
+                    }
+                  });
+                }}
               >
-                <RemoveCircleOutlineIcon className={classes.extendedIcon} />
                 Remove from Bin
-              </Fab>
+              </Button>
             ) : (
-              <Fab
-                variant="extended"
-                size="small"
+              <Button
+                variant="contained"
                 color="primary"
-                aria-label="add"
-                className={classes.binButton}
+                className={classes.button}
+                startIcon={
+                  <AddCircleOutlineIcon className={classes.extendedIcon} />
+                }
+                onClick={e => {
+                  updateImage({
+                    variables: {
+                      id,
+                      url,
+                      author: poster_name,
+                      description,
+                      user_posted,
+                      binned: true
+                    }
+                  });
+                }}
               >
-                <AddCircleOutlineIcon className={classes.extendedIcon} />
                 Add to Bin
-              </Fab>
+              </Button>
             )}
           </div>
         </Card>
