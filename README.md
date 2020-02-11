@@ -32,11 +32,3 @@
 
 - [Exercise 01: Dictionary App](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/inclass-exercises/exercise01)
 - [Exercise 02: JSON Routes](https://github.com/halfundecided/web-programming-stevens/tree/master/web-programming-1/inclass-exercises/exercise02)
-
-## CS554: Web Programming II
-
-### Lecture Notes
-
-### Labs
-
-### In-class Exercises
